@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-App<ModuloAlumnoJDBC>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "edu.moduloalumno.App",
+            "projectName": "ModuloAlumnoJDBC",
+            "args": ""
+        }
+    ]
+}
