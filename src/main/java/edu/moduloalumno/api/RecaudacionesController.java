@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.moduloalumno.entity.CuentasPorCobrar;
 import edu.moduloalumno.entity.Recaudaciones;
 import edu.moduloalumno.model.Filtro;
 import edu.moduloalumno.service.IRecaudacionesService;
@@ -131,7 +132,8 @@ public class RecaudacionesController {
 		logger.info("< getRecaudacionesByStartDateBetween [Recaudaciones]");
 		return new ResponseEntity<List<Recaudaciones>>(list, HttpStatus.OK);
 	}
-
+	
+	
 	@RequestMapping(value = "/listar/{nom_ape}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Recaudaciones>> getRecaudacionesByNomApeStartDateBetween(@PathVariable("nom_ape") String nom_ape,
 			@PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
@@ -339,4 +341,34 @@ public class RecaudacionesController {
 //			logger.info("< getRecaudacionesByStartDateBetween [Recaudaciones]");
 			return new ResponseEntity<List<Recaudaciones>>(list, HttpStatus.OK);
 		}
+		
+		@RequestMapping(value="/cuentasPorCobrar/{fechaInicial}/{fechaFinal}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<List<CuentasPorCobrar>> getCuentasPorCobrar(@PathVariable("fechaInicial") String fechaInicial,@PathVariable("fechaFinal") String fechaFinal){
+			System.out.println("Entro a cuentas por cobrar");
+			List<CuentasPorCobrar> list=null;
+			Date fInicial;
+			Date fFinal;
+			DateFormat formateador=new SimpleDateFormat("yyyy-MM-dd");
+			
+			try {
+				fInicial=formateador.parse(fechaFinal);
+				System.out.println(fInicial);
+				fFinal=formateador.parse(fechaFinal);
+				System.out.println(fFinal);
+				
+				list=recaudacionesService.getCuentasPorCobrar(fechaInicial,fechaFinal);
+				System.out.println(list);
+				if(list==null) {
+					list=new ArrayList<CuentasPorCobrar>();
+				}
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				return new ResponseEntity<List<CuentasPorCobrar>>(list, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+			
+			return new ResponseEntity<List<CuentasPorCobrar>>(list,HttpStatus.OK);
+		}
+		
+		
+		
 }

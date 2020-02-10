@@ -3,6 +3,7 @@ package edu.moduloalumno.dao;
 import java.util.Date;
 import java.util.List;
 
+import edu.moduloalumno.entity.CuentasPorCobrar;
 import edu.moduloalumno.entity.Recaudaciones;
 
 public interface IRecaudacionesDAO {
@@ -45,5 +46,8 @@ public interface IRecaudacionesDAO {
 	public List<Recaudaciones> getRecaudacionesPendiengesEntreFechas(Date fechaInicial, Date fechaFinal);
 	public List<Recaudaciones> getRecaudacionesPorNombre(String nombresApellido);
 	public List<Recaudaciones> getObservacionesEntreFechas(Date fechaInicial, Date fechaFinal);
+	
+	//agregado por rolando
+	public List<CuentasPorCobrar> getCuentasPorCobrar(String fechaInicial,String fechaFinal);
 
 }

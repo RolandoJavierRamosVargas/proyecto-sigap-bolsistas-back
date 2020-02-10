@@ -3,6 +3,7 @@ package edu.moduloalumno.service;
 import java.util.Date;
 import java.util.List;
 
+import edu.moduloalumno.entity.CuentasPorCobrar;
 import edu.moduloalumno.entity.Recaudaciones;
 
 public interface IRecaudacionesService {
@@ -47,4 +48,10 @@ public interface IRecaudacionesService {
 	List<Recaudaciones> getRecaudacionesPendiengesEntreFechas(Date fechaInicial, Date fechaFinal);
 	List<Recaudaciones> getObservacionesEntreFechas(Date fechaInicial, Date fechaFinal);
 	List<Recaudaciones> getRecaudacionesPorNombre(String nombresApellido);
+	
+	
+	//Agregado por Rolando
+	
+	List<CuentasPorCobrar> getCuentasPorCobrar(String fechaInicial,String fechaFinal);
+	
 }
