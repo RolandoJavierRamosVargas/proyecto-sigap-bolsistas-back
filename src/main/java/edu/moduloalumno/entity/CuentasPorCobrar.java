@@ -11,28 +11,22 @@ public class CuentasPorCobrar {
 	Integer max_anio_estudio;
 	Integer beneficio_otorgado;
 	String autorizacion;
-	String caso;
+	String moneda;//cambia
 	Integer n_prioridad;
 	String concepto;
 	String descripcion_min;
-	Integer importe_pagado;
 	Integer importe_xpagar;
+	Integer importe_pagado;
 	Integer deuda;
+	String estado;
+	
 	
 	
 	
 	public CuentasPorCobrar() {
 		
 	}
-	@Override
-	public String toString() {
-		return "CuentasPorCobrar [cod_alumno=" + cod_alumno + ", ape_paterno=" + ape_paterno + ", ape_materno="
-				+ ape_materno + ", nom_alumno=" + nom_alumno + ", sigla_programa=" + sigla_programa + ", cod_perm="
-				+ cod_perm + ", max_anio_estudio=" + max_anio_estudio + ", beneficio_otorgado=" + beneficio_otorgado
-				+ ", autorizacion=" + autorizacion + ", caso=" + caso + ", n_prioridad=" + n_prioridad + ", concepto="
-				+ concepto + ", descripcion_min=" + descripcion_min + ", importe_pagado=" + importe_pagado
-				+ ", importe_xpagar=" + importe_xpagar + ", deuda=" + deuda + "]";
-	}
+	
 	public String getCod_alumno() {
 		return cod_alumno;
 	}
@@ -87,11 +81,11 @@ public class CuentasPorCobrar {
 	public void setAutorizacion(String autorizacion) {
 		this.autorizacion = autorizacion;
 	}
-	public String getCaso() {
-		return caso;
+	public String getMoneda() {
+		return moneda;
 	}
-	public void setCaso(String caso) {
-		this.caso = caso;
+	public void setMoneda(String moneda) {
+		this.moneda = moneda;
 	}
 	public Integer getN_prioridad() {
 		return n_prioridad;
@@ -130,7 +124,14 @@ public class CuentasPorCobrar {
 		this.deuda = deuda;
 	}
 	
-	
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
 	
 	
 }

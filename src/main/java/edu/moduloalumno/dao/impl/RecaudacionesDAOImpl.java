@@ -275,37 +275,61 @@ public class RecaudacionesDAOImpl implements IRecaudacionesDAO {
 	
 	@Override
 	public List<CuentasPorCobrar> getCuentasPorCobrar(String fechaInicial,String fechaFinal){
-		String sql="select j.cod_alumno,j.ape_paterno,j.ape_materno,j.nom_alumno,j.sigla_programa, " + 
-				"j.cod_perm, coalesce(j.max_anio_estudio,0) as max_anio_estudio,j.beneficio_otorgado,j.autorizacion, " + 
-				"CASE WHEN j.moneda='108' THEN 'S'\n" + 
-				"     WHEN j.moneda='113' THEN '$'\n" + 
-				"     ELSE '?'\n" + 
-				"END,"
-				+ "j.n_prioridad,j.concepto,j.descripcion_min,j.importe_pagado,i.importe as importe_xpagar,(i.importe - j.importe_pagado) as deuda " + 
+		String sql="select a.cod_alumno,a.ape_paterno,a.ape_materno,a.nom_alumno,d.sigla_programa, " + 
+				"a.cod_perm, coalesce(a.max_anio_estudio,0) as max_anio_estudio,f.beneficio_otorgado,f.autorizacion, " + 
+				"CASE WHEN c.moneda='108' THEN 'SOLES' " + 
+				"            WHEN c.moneda='113' THEN 'DOLARES' " + 
+				"            ELSE '?'  " + 
+				"       END as moneda,e.n_prioridad,e.concepto,e.descripcion_min, " + 
+				"			i.importe as importe_xpagar,c.importe_pagado,(i.importe - c.importe_pagado) as deuda, " + 
+				"			'RECIBO VERIFICADO' as estado " + 
 				"from importe_alumno i " + 
-				"inner join ( " + 
-				"select " + 
-				"a.cod_alumno,a.id_programa,a.ape_paterno,a.ape_materno,a.nom_alumno,d.sigla_programa, "+ 
-				"a.cod_perm, a.max_anio_estudio,f.beneficio_otorgado,f.autorizacion,c.moneda,e.n_prioridad,e.id_concepto,e.concepto,e.descripcion_min,sum(c.importe) as importe_pagado " + 
-				"from alumno_programa a inner join recaudaciones c " + 
-				"on (a.cod_alumno=c.cod_alumno) " + 
+				"inner join alumno_programa a  " + 
+				"on (a.cod_alumno=CAST(i.cod_alumno as varchar) and a.id_programa=i.cod_programa) " + 
 				"inner join programa d " + 
 				"on (a.id_programa=d.id_programa) " + 
-				"inner join concepto e " + 
-				"on (c.id_concepto=e.id_concepto) " + 
 				"left outer join alumno_programa_beneficio f " + 
 				"on (a.cod_alumno=f.cod_alumno) " + 
+				"inner join (select  " + 
+				"c.cod_alumno,c.id_programa,c.moneda,c.id_concepto,sum(c.importe) as importe_pagado " + 
+				"from recaudaciones c " + 
 				"where  " + 
-				"a.cna is null " + 
-				"and substring(a.anio_ingreso,1,4) between '"+ fechaInicial+"'  and '"+fechaFinal +"' " + 
-				"and (c.validado is true) " + 
-				"and e.concepto in ('207010','210024','210010','210011') " + 
-				"group by a.cod_alumno,a.id_programa,a.ape_paterno,a.ape_materno,a.nom_alumno,d.sigla_programa, " + 
-				"a.cod_perm, a.max_anio_estudio,f.beneficio_otorgado,f.autorizacion,c.moneda,e.n_prioridad,e.id_concepto,e.concepto,e.descripcion_min) as j " + 
-				"on ( (j.cod_alumno=CAST(i.cod_alumno as varchar) and j.id_programa=i.cod_programa) " + 
-				"and (j.id_concepto=i.cod_concepto)) " + 
-				"where (i.importe - j.importe_pagado) > 0 " + 
-				"order by 1,2,3,j.n_prioridad;";
+				"	  c.validado is true " + 
+				"and c.id_concepto in (9,117,21,62) " + 
+				"group by c.cod_alumno,c.id_programa,c.moneda,c.id_concepto) as c " + 
+				"on (a.cod_alumno=c.cod_alumno) " + 
+				"inner join concepto e " + 
+				"on (i.cod_concepto=e.id_concepto and i.cod_concepto=c.id_concepto) " + 
+				"where " + 
+				"	a.cna is null " + 
+				"and substring(a.anio_ingreso,1,4) between '"+fechaInicial+"' and '"+fechaFinal+"' " + 
+				"and CAST(substring(a.cod_alumno,1,2) as integer)>=16 " + 
+				"and c.moneda='108' " + 
+				"and i.importe>0.0 and (i.importe - c.importe_pagado) > 5 " + 
+				"UNION " + 
+				"select a.cod_alumno,a.ape_paterno,a.ape_materno,a.nom_alumno,d.sigla_programa,	" + 
+				"a.cod_perm, coalesce(a.max_anio_estudio,0) as max_anio_estudio,f.beneficio_otorgado,f.autorizacion, " + 
+				"'SOLES' as moneda,e.n_prioridad,e.concepto,e.descripcion_min, " + 
+				"			i.importe as importe_xpagar,0,(i.importe - 0) as deuda, 'RECIBO NO UBICADO' " + 
+				"from importe_alumno i " + 
+				"inner join alumno_programa a  " + 
+				"on (a.cod_alumno=CAST(i.cod_alumno as varchar) and a.id_programa=i.cod_programa) " + 
+				"inner join programa d " + 
+				"on (a.id_programa=d.id_programa) " + 
+				"left outer join alumno_programa_beneficio f " + 
+				"on (a.cod_alumno=f.cod_alumno) " + 
+				"inner join concepto e " + 
+				"on (i.cod_concepto=e.id_concepto ) " + 
+				"where " + 
+				"	a.cna is null " + 
+				"and substring(a.anio_ingreso,1,4) between '"+fechaInicial+"'  and '"+fechaFinal+"'"+ 
+				"and CAST(substring(a.cod_alumno,1,2) as integer)>=16 " + 
+				"and not exists (select 1 " + 
+				"from recaudaciones c " + 
+				"where c.cod_alumno=a.cod_alumno " + 
+				"and c.id_concepto=i.cod_concepto " + 
+				"and c.validado is true) " + 
+				"order by 1,2,3,n_prioridad;";
 		
 		System.out.println("El sql es\n"+ sql);
 		

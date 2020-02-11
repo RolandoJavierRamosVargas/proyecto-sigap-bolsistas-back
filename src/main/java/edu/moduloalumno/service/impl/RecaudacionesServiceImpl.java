@@ -193,7 +193,7 @@ public class RecaudacionesServiceImpl implements IRecaudacionesService {
 
 	@Override
 	public ByteArrayInputStream exportAllData(String fechaInicio,String fechaFin) throws Exception {
-		String[] columns = { "cod_alumno", "ape_paterno", "ape_materno", "nom_alumno", "sigla_programa","cod_perm","max_anio_estudio","beneficio_otorgado","autorizacion","caso","n_prioridad","concepto","descripcion_min","importe_pagado", "importe_xpagar","deuda"};
+		String[] columns = { "cod_alumno", "ape_paterno", "ape_materno", "nom_alumno", "sigla_programa","cod_perm","max_anio_estudio","beneficio_otorgado","autorizacion","moneda","n_prioridad","concepto","descripcion_min", "importe_xpagar","importe_pagado","deuda","estado"};
 
 		Workbook workbook = new HSSFWorkbook();
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -219,13 +219,14 @@ public class RecaudacionesServiceImpl implements IRecaudacionesService {
 			row.createCell(6).setCellValue(cuenta.getMax_anio_estudio());
 			row.createCell(7).setCellValue(cuenta.getBeneficio_otorgado());
 			row.createCell(8).setCellValue(cuenta.getAutorizacion());
-			row.createCell(9).setCellValue(cuenta.getCaso());
+			row.createCell(9).setCellValue(cuenta.getMoneda());
 			row.createCell(10).setCellValue(cuenta.getN_prioridad());
 			row.createCell(11).setCellValue(cuenta.getConcepto());
 			row.createCell(12).setCellValue(cuenta.getDescripcion_min());
-			row.createCell(13).setCellValue(cuenta.getImporte_pagado());
-			row.createCell(14).setCellValue(cuenta.getImporte_xpagar());
+			row.createCell(13).setCellValue(cuenta.getImporte_xpagar());
+			row.createCell(14).setCellValue(cuenta.getImporte_pagado());
 			row.createCell(15).setCellValue(cuenta.getDeuda());
+			row.createCell(16).setCellValue(cuenta.getEstado());
 
 			initRow++;
 		}
