@@ -1,10 +1,19 @@
 package edu.moduloalumno.service.impl;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+
 
 import edu.moduloalumno.dao.IRecaudacionesDAO;
 import edu.moduloalumno.entity.CuentasPorCobrar;
@@ -180,6 +189,50 @@ public class RecaudacionesServiceImpl implements IRecaudacionesService {
 		System.out.println("Entro a recaudacionesService");
 		List<CuentasPorCobrar> cuentasPorCobrarList=recaudacionesDAO.getCuentasPorCobrar(fechaInicial,fechaFinal);
 		return cuentasPorCobrarList;
+	}
+
+	@Override
+	public ByteArrayInputStream exportAllData(String fechaInicio,String fechaFin) throws Exception {
+		String[] columns = { "cod_alumno", "ape_paterno", "ape_materno", "nom_alumno", "sigla_programa","cod_perm","max_anio_estudio","beneficio_otorgado","autorizacion","caso","n_prioridad","concepto","descripcion_min","importe_pagado", "importe_xpagar","deuda"};
+
+		Workbook workbook = new HSSFWorkbook();
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+		Sheet sheet = workbook.createSheet("Cuentas Por Cobrar");
+		Row row = sheet.createRow(0);
+
+		for (int i = 0; i < columns.length; i++) {
+			Cell cell = row.createCell(i);
+			cell.setCellValue(columns[i]);
+		}
+
+		List<CuentasPorCobrar> cuentasPorCobrar = this.getCuentasPorCobrar(fechaInicio, fechaFin);
+		int initRow = 1;
+		for (CuentasPorCobrar cuenta : cuentasPorCobrar) {
+			row = sheet.createRow(initRow);
+			row.createCell(0).setCellValue(cuenta.getCod_alumno());
+			row.createCell(1).setCellValue(cuenta.getApe_paterno());
+			row.createCell(2).setCellValue(cuenta.getApe_materno());
+			row.createCell(3).setCellValue(cuenta.getNom_alumno());
+			row.createCell(4).setCellValue(cuenta.getSigla_programa());
+			row.createCell(5).setCellValue(cuenta.getCod_perm());
+			row.createCell(6).setCellValue(cuenta.getMax_anio_estudio());
+			row.createCell(7).setCellValue(cuenta.getBeneficio_otorgado());
+			row.createCell(8).setCellValue(cuenta.getAutorizacion());
+			row.createCell(9).setCellValue(cuenta.getCaso());
+			row.createCell(10).setCellValue(cuenta.getN_prioridad());
+			row.createCell(11).setCellValue(cuenta.getConcepto());
+			row.createCell(12).setCellValue(cuenta.getDescripcion_min());
+			row.createCell(13).setCellValue(cuenta.getImporte_pagado());
+			row.createCell(14).setCellValue(cuenta.getImporte_xpagar());
+			row.createCell(15).setCellValue(cuenta.getDeuda());
+
+			initRow++;
+		}
+
+		workbook.write(stream);
+		workbook.close();
+		return new ByteArrayInputStream(stream.toByteArray());
 	}
 }
 

@@ -1,5 +1,6 @@
 package edu.moduloalumno.dao;
 
+import java.io.ByteArrayInputStream;
 import java.util.Date;
 import java.util.List;
 
@@ -49,5 +50,4 @@ public interface IRecaudacionesDAO {
 	
 	//agregado por rolando
 	public List<CuentasPorCobrar> getCuentasPorCobrar(String fechaInicial,String fechaFinal);
-
 }

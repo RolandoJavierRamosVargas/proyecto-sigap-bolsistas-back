@@ -1,5 +1,6 @@
 package edu.moduloalumno.service;
 
+import java.io.ByteArrayInputStream;
 import java.util.Date;
 import java.util.List;
 
@@ -53,5 +54,7 @@ public interface IRecaudacionesService {
 	//Agregado por Rolando
 	
 	List<CuentasPorCobrar> getCuentasPorCobrar(String fechaInicial,String fechaFinal);
+	
+	ByteArrayInputStream exportAllData(String fechaInicial,String fechaFinal) throws Exception;
 	
 }

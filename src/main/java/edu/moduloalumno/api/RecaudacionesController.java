@@ -1,5 +1,6 @@
 package edu.moduloalumno.api;
 
+import java.io.ByteArrayInputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,6 +10,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -345,6 +348,7 @@ public class RecaudacionesController {
 		@RequestMapping(value="/cuentasPorCobrar/{fechaInicial}/{fechaFinal}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<List<CuentasPorCobrar>> getCuentasPorCobrar(@PathVariable("fechaInicial") String fechaInicial,@PathVariable("fechaFinal") String fechaFinal){
 			System.out.println("Entro a cuentas por cobrar");
+			
 			List<CuentasPorCobrar> list=null;
 			Date fInicial;
 			Date fFinal;
@@ -356,7 +360,7 @@ public class RecaudacionesController {
 				fFinal=formateador.parse(fechaFinal);
 				System.out.println(fFinal);
 				
-				list=recaudacionesService.getCuentasPorCobrar(fechaInicial,fechaFinal);
+				list=recaudacionesService.getCuentasPorCobrar(fechaInicial.substring(0, 4),fechaFinal.substring(0,4));
 				System.out.println(list);
 				if(list==null) {
 					list=new ArrayList<CuentasPorCobrar>();
@@ -368,6 +372,20 @@ public class RecaudacionesController {
 			
 			return new ResponseEntity<List<CuentasPorCobrar>>(list,HttpStatus.OK);
 		}
+		
+		@RequestMapping(value="/cuentasPorCobrar/exportExcel/{fechaInicial}/{fechaFinal}",method=RequestMethod.GET)
+		public  ResponseEntity<InputStreamResource> exportExcel(@PathVariable("fechaInicial") String fechaInicial,@PathVariable("fechaFinal") String fechaFinal) throws Exception{
+			
+			ByteArrayInputStream stream = recaudacionesService.exportAllData(fechaInicial.substring(0, 4), fechaFinal.substring(0, 4));
+
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Disposition", "attachment; filename=recaudaciones.xls");
+
+			return ResponseEntity.ok().headers(headers).body(new InputStreamResource(stream));
+			
+		}
+		
+		
 		
 		
 		
