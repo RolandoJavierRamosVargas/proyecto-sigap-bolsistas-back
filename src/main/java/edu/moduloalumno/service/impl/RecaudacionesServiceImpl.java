@@ -193,7 +193,7 @@ public class RecaudacionesServiceImpl implements IRecaudacionesService {
 
 	@Override
 	public ByteArrayInputStream exportAllData(String fechaInicio,String fechaFin) throws Exception {
-		String[] columns = { "cod_alumno", "ape_paterno", "ape_materno", "nom_alumno", "sigla_programa","cod_perm","max_anio_estudio","beneficio_otorgado","autorizacion","moneda","n_prioridad","concepto","descripcion_min", "importe_xpagar","importe_pagado","deuda","estado"};
+		String[] columns = { "cod_alumno", "ape_paterno", "ape_materno", "nombres del alumno", "sigla_programa","cod_perm","max_anio_estudio","beneficio_otorgado","autorizacion","moneda","n_prioridad","concepto","descripcion_min", "importe_xpagar","importe_pagado","deuda","estado"};
 
 		Workbook workbook = new HSSFWorkbook();
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
