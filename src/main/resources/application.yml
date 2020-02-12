@@ -1,7 +1,7 @@
 spring:
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://67.205.143.180/tcs6
+    url: jdbc:postgresql://67.205.143.180/tcs2
     username: modulo4
     password: modulo4
 
