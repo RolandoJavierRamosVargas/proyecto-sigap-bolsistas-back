@@ -50,7 +50,7 @@ public class ImporteAlumnoController {
 	}
         
         @RequestMapping(value = "/search/{cod_alumno}/{cod_programa}/{cod_concepto}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    	public ResponseEntity<ImporteAlumno> getImporteAlumnoImporte(@PathVariable("cod_alumno") Integer cod_alumno,@PathVariable("cod_programa") Integer cod_programa,@PathVariable("cod_concepto") Integer cod_concepto) {
+    	public ResponseEntity<ImporteAlumno> getImporteAlumnoImporte(@PathVariable("cod_alumno") String cod_alumno,@PathVariable("cod_programa") Integer cod_programa,@PathVariable("cod_concepto") Integer cod_concepto) {
     		logger.info("> getImporteAlumnoImporte [ImporteAlumno]");
 
     		ImporteAlumno importe = null;
@@ -135,7 +135,7 @@ public class ImporteAlumnoController {
 
     		logger.info("> updateImporteAlumno [ImporteAlumno]");
     		
-    		int coalu = newimportealumno.getCod_alumno();
+    		String coalu = newimportealumno.getCod_alumno();
     		int copro = newimportealumno.getCod_programa();
     		int cocon = newimportealumno.getCod_concepto();
     		double im = newimportealumno.getImporte();

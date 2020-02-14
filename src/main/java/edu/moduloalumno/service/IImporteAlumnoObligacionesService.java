@@ -8,7 +8,7 @@ public interface IImporteAlumnoObligacionesService {
 	
 		List<ImporteAlumnoObligaciones> getAllImporteAlumnosObligaciones();
 		
-		List<ImporteAlumnoObligaciones> getImporteAlumnoObligacionesImporte(int cod_alumno, int cod_programa);
+		List<ImporteAlumnoObligaciones> getImporteAlumnoObligacionesImporte(String cod_alumno, int cod_programa);
 	    
 	    void addImporteAlumnoObligaciones(ImporteAlumnoObligaciones importealumnoobligaciones);
 	    

@@ -13,7 +13,7 @@ public class ImporteAlumnoObligacionesRowMapper implements RowMapper<ImporteAlum
 	    public ImporteAlumnoObligaciones mapRow(ResultSet row, int rowNum) throws SQLException {
 		ImporteAlumnoObligaciones importealumnoobligaciones = new ImporteAlumnoObligaciones();
 				importealumnoobligaciones.setId_importe_alumno_obligaciones(row.getInt("id_importe_alumno_obligaciones"));
-				importealumnoobligaciones.setCod_alumno(row.getInt("cod_alumno"));
+				importealumnoobligaciones.setCod_alumno(row.getString("cod_alumno"));
 	            importealumnoobligaciones.setCod_programa(row.getInt("cod_programa"));
 	            importealumnoobligaciones.setCod_concepto(row.getInt("cod_concepto"));
 	            importealumnoobligaciones.setImporte(row.getDouble("importe"));

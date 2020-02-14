@@ -54,7 +54,7 @@ public class ImporteAlumnoObligacionesController {
 	}
         
         @RequestMapping(value = "/search/{cod_alumno}/{cod_programa}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    	public ResponseEntity<List<ImporteAlumnoObligaciones>> getImporteAlumnoObligacionesImporte(@PathVariable("cod_alumno") Integer cod_alumno,@PathVariable("cod_programa") Integer cod_programa) {
+    	public ResponseEntity<List<ImporteAlumnoObligaciones>> getImporteAlumnoObligacionesImporte(@PathVariable("cod_alumno") String cod_alumno,@PathVariable("cod_programa") Integer cod_programa) {
     		logger.info("> getImporteAlumnoObligacionesImporte [ImporteAlumnoObligaciones]");
     		
     		List<ImporteAlumnoObligaciones> list = null;

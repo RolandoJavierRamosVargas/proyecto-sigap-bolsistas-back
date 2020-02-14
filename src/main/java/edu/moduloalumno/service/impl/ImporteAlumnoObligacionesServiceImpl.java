@@ -19,7 +19,7 @@ public class ImporteAlumnoObligacionesServiceImpl implements IImporteAlumnoOblig
 	}
 	
 	@Override
-	public List<ImporteAlumnoObligaciones> getImporteAlumnoObligacionesImporte(int cod_alumno, int cod_programa) {
+	public List<ImporteAlumnoObligaciones> getImporteAlumnoObligacionesImporte(String cod_alumno, int cod_programa) {
 		return ImporteAlumnoObligacionesDAO.getImporteAlumnoObligacionesImporte(cod_alumno, cod_programa);
 	}
 	

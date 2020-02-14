@@ -32,7 +32,7 @@ public class ImporteAlumnoObligacionesDAOImpl implements IImporteAlumnoObligacio
 	}
         
         @Override
-    	public List<ImporteAlumnoObligaciones> getImporteAlumnoObligacionesImporte(int cod_alumno,int cod_programa) {
+    	public List<ImporteAlumnoObligaciones> getImporteAlumnoObligacionesImporte(String cod_alumno,int cod_programa) {
     		String sql = "SELECT id_importe_alumno_obligaciones,cod_alumno, cod_programa, cod_concepto, importe, id_tipo_obligacion, id_moneda, id_tobligacion_estado, descripcion FROM importe_alumno_obligaciones WHERE cod_alumno = ? and cod_programa = ? order by id_tobligacion_estado";
     		
     		RowMapper<ImporteAlumnoObligaciones> rowMapper = new BeanPropertyRowMapper<ImporteAlumnoObligaciones>(ImporteAlumnoObligaciones.class);

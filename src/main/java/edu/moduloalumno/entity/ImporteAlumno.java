@@ -6,7 +6,7 @@ public class ImporteAlumno implements Serializable {
     
     private static final long serialVersionUID = 1L;
         
-    private Integer cod_alumno;
+    private String cod_alumno;
     
     private Integer cod_programa;
     
@@ -17,18 +17,18 @@ public class ImporteAlumno implements Serializable {
     public ImporteAlumno() {
     }
 
-    public ImporteAlumno(Integer cod_alumno, Integer cod_programa, Integer cod_concepto, double importe) {
+    public ImporteAlumno(String cod_alumno, Integer cod_programa, Integer cod_concepto, double importe) {
         this.cod_alumno = cod_alumno;
         this.cod_programa = cod_programa;
         this.cod_concepto = cod_concepto;
         this.importe = importe;
     }
 
-    public Integer getCod_alumno() {
+    public String getCod_alumno() {
         return cod_alumno;
     }
 
-    public void setCod_alumno(Integer cod_alumno) {
+    public void setCod_alumno(String cod_alumno) {
         this.cod_alumno = cod_alumno;
     }
 

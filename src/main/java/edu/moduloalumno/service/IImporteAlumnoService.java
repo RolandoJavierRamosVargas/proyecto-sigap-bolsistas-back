@@ -10,7 +10,7 @@ public interface IImporteAlumnoService {
         
         ImporteAlumno getImporteAlumnoByAlumnoId(int cod_alumno);
         
-        ImporteAlumno getImporteAlumnoImporte(int cod_alumno, int cod_programa, int cod_concepto);
+        ImporteAlumno getImporteAlumnoImporte(String cod_alumno, int cod_programa, int cod_concepto);
         
         double getImporteAlumno(ImporteAlumno importealumno);
         

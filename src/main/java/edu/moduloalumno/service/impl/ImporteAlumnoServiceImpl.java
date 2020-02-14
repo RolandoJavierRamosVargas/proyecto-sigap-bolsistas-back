@@ -20,7 +20,7 @@ public class ImporteAlumnoServiceImpl implements IImporteAlumnoService{
 	}
 	
 	@Override
-	public ImporteAlumno getImporteAlumnoImporte(int cod_alumno, int cod_programa, int cod_concepto) {
+	public ImporteAlumno getImporteAlumnoImporte(String cod_alumno, int cod_programa, int cod_concepto) {
 		ImporteAlumno ImporteAlumno = ImporteAlumnoDAO.getImporteAlumnoImporte(cod_alumno,cod_programa,cod_concepto);
 		return ImporteAlumno;
 	}
