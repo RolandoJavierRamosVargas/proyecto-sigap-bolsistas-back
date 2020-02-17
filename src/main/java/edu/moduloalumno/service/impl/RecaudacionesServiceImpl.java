@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import edu.moduloalumno.dao.IRecaudacionesDAO;
 import edu.moduloalumno.entity.CuentasPorCobrar;
+import edu.moduloalumno.entity.CuentasPorCobrar2;
 import edu.moduloalumno.entity.Recaudaciones;
 import edu.moduloalumno.service.IRecaudacionesService;
 
@@ -188,6 +189,13 @@ public class RecaudacionesServiceImpl implements IRecaudacionesService {
 	public List<CuentasPorCobrar> getCuentasPorCobrar(String fechaInicial, String fechaFinal) {
 		System.out.println("Entro a recaudacionesService");
 		List<CuentasPorCobrar> cuentasPorCobrarList=recaudacionesDAO.getCuentasPorCobrar(fechaInicial,fechaFinal);
+		return cuentasPorCobrarList;
+	}
+	
+	@Override
+	public List<CuentasPorCobrar2> getCuentasPorCobrar2(String fechaInicial, String fechaFinal) {
+		System.out.println("Entro a recaudacionesService2");
+		List<CuentasPorCobrar2> cuentasPorCobrarList=recaudacionesDAO.getCuentasPorCobrar2(fechaInicial,fechaFinal);
 		return cuentasPorCobrarList;
 	}
 

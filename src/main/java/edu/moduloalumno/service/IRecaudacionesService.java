@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import edu.moduloalumno.entity.CuentasPorCobrar;
+import edu.moduloalumno.entity.CuentasPorCobrar2;
 import edu.moduloalumno.entity.Recaudaciones;
 
 public interface IRecaudacionesService {
@@ -54,6 +55,8 @@ public interface IRecaudacionesService {
 	//Agregado por Rolando
 	
 	List<CuentasPorCobrar> getCuentasPorCobrar(String fechaInicial,String fechaFinal);
+	
+	List<CuentasPorCobrar2> getCuentasPorCobrar2(String fechaInicial,String fechaFinal);
 	
 	ByteArrayInputStream exportAllData(String fechaInicial,String fechaFinal) throws Exception;
 	

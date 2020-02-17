@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.moduloalumno.entity.CuentasPorCobrar;
+import edu.moduloalumno.entity.CuentasPorCobrar2;
 import edu.moduloalumno.entity.Recaudaciones;
 import edu.moduloalumno.model.Filtro;
 import edu.moduloalumno.service.IRecaudacionesService;
@@ -372,6 +373,30 @@ public class RecaudacionesController {
 			
 			return new ResponseEntity<List<CuentasPorCobrar>>(list,HttpStatus.OK);
 		}
+		/*Esta es la segunda version de cuentas por cobrar (CPCv2)*/
+		@RequestMapping(value="/cuentasPorCobrar2/{fechaInicial}/{fechaFinal}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<List<CuentasPorCobrar2>> getCuentasPorCobrar2(@PathVariable("fechaInicial") String fechaInicial,@PathVariable("fechaFinal") String fechaFinal){
+			System.out.println("Entro a cuentas por cobrar");
+			
+			List<CuentasPorCobrar2> list=null;
+			
+			try {	
+				
+				list=recaudacionesService.getCuentasPorCobrar2(fechaInicial.substring(0, 4),fechaFinal.substring(0,4));
+				System.out.println(list);
+				if(list==null) {
+					list=new ArrayList<CuentasPorCobrar2>();
+				}
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				System.out.println("Entro al catch");
+				return new ResponseEntity<List<CuentasPorCobrar2>>(list, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+			
+			return new ResponseEntity<List<CuentasPorCobrar2>>(list,HttpStatus.OK);
+		}
+		
+		/*Fin de la segunda version de cuentas por cobrar (CPCv2)*/
 		
 		@RequestMapping(value="/cuentasPorCobrar/exportExcel/{fechaInicial}/{fechaFinal}",method=RequestMethod.GET)
 		public  ResponseEntity<InputStreamResource> exportExcel(@PathVariable("fechaInicial") String fechaInicial,@PathVariable("fechaFinal") String fechaFinal) throws Exception{

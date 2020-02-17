@@ -12,8 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.moduloalumno.dao.IRecaudacionesDAO;
 import edu.moduloalumno.entity.CuentasPorCobrar;
+import edu.moduloalumno.entity.CuentasPorCobrar2;
 import edu.moduloalumno.entity.Recaudaciones;
 import edu.moduloalumno.rowmapper.CuentasPorCobrarRowMapper;
+import edu.moduloalumno.rowmapper.CuentasPorCobrarRowMapper2;
 import edu.moduloalumno.rowmapper.RecaudacionesRowMapper;
 
 @Transactional
@@ -331,11 +333,101 @@ public class RecaudacionesDAOImpl implements IRecaudacionesDAO {
 				"and c.validado is true) " + 
 				"order by 1,2,3,n_prioridad;";
 		
-		System.out.println("El sql es\n"+ sql);
+		System.out.println("El sql es "+ sql);
 		
 		RowMapper<CuentasPorCobrar> rowMapper=new CuentasPorCobrarRowMapper();
 		System.out.println("llego hasta el rowMapper");
 		List<CuentasPorCobrar> list=this.jdbcTemplate.query(sql, rowMapper);
+		System.out.println("Paso a ejecutar el query");
+		return list;
+	}
+
+	@Override
+	public List<CuentasPorCobrar2> getCuentasPorCobrar2(String fechaInicial, String fechaFinal) {
+		String sql="select a.cod_alumno,a.ape_paterno,a.ape_materno,a.nom_alumno,d.n_prioridad,d.sigla_programa, " + 
+				"substring(a.anio_ingreso,1,4) as anio_ingreso,a.cod_perm, coalesce(a.max_anio_estudio,0) as max_anio_estudio,f.beneficio_otorgado,f.autorizacion, " + 
+				"CASE WHEN c.moneda='108' THEN 'SOLES' " + 
+				"            WHEN c.moneda='113' THEN 'DOLARES' " + 
+				"            ELSE '?'  " + 
+				"       END as moneda,e.n_prioridad as prioridad,e.concepto,e.descripcion_min, " + 
+				"			i.importe as importe_xpagar,c.importe_pagado,(i.importe - c.importe_pagado) as deuda, " + 
+				"			'RECIBO VERIFICADO' as estado, " + 
+				"dp.coe_alumno,dp.coe_alu_personal,dp.tel_alu_movil,dp.tel_alumno,dp.des_doc_identidad,dp.did_alumno, " + 
+				"dp.dir_tip_via,dp.dir_tip_via_nom,dp.dir_num_puerta,dp.dir_num_piso,dp.dir_num_dpto, " + 
+				"dp.dir_num_mz,dp.dir_num_lote,dp.dir_num_km,dp.dir_tip_loc, " + 
+				"dp.dir_tip_loc_nom,u.departamento,u.provincia,u.distrito " + 
+				"from importe_alumno i " + 
+				"inner join alumno_programa a  " + 
+				"on (a.cod_alumno=CAST(i.cod_alumno as varchar) and a.id_programa=i.cod_programa) " + 
+				"inner join programa d " + 
+				"on (a.id_programa=d.id_programa) " + 
+				"left outer join alumno_programa_beneficio f " + 
+				"on (a.cod_alumno=f.cod_alumno) " + 
+				"inner join (select  " + 
+				"c.cod_alumno,c.id_programa,c.moneda,c.id_concepto,sum(c.importe) as importe_pagado " + 
+				"from recaudaciones c " + 
+				"where  " + 
+				"  c.id_concepto in (9,117,21,62) " + 
+				"group by c.cod_alumno,c.id_programa,c.moneda,c.id_concepto) as c " + 
+				"on (a.cod_alumno=c.cod_alumno) " + 
+				"inner join concepto e " + 
+				"on (i.cod_concepto=e.id_concepto and i.cod_concepto=c.id_concepto) " + 
+				"left outer join sum_dpersonales dp " + 
+				"on (a.cod_alumno=dp.cod_alumno " + 
+				"and dp.semestre=(select max(dp1.semestre)  " + 
+				"								from sum_dpersonales dp1  " + 
+				"								where dp1.cod_alumno=dp.cod_alumno)) " + 
+				"left outer join ubigeo u " + 
+				"on (u.idubigeo=CONCAT(dp.dir_ubi_depa, dp.dir_ubi_prov,dp.dir_ubi_dist)) " + 
+				"where  " + 
+				"	a.cna is null " + 
+				"and substring(a.anio_ingreso,1,4) between '+ "+fechaInicial+"' and '"+fechaFinal+"' " + 
+				"and CAST(substring(a.cod_alumno,1,2) as integer)>=16 " + 
+				"and c.moneda='108' " + 
+				"and i.importe>0.0 and (i.importe - c.importe_pagado) > 10 " + 
+				"UNION " + 
+				"select a.cod_alumno,a.ape_paterno,a.ape_materno,a.nom_alumno,d.n_prioridad,d.sigla_programa,			 " + 
+				"substring(a.anio_ingreso,1,4) as anio_ingreso,a.cod_perm, coalesce(a.max_anio_estudio,0) as max_anio_estudio,f.beneficio_otorgado,f.autorizacion, " + 
+				"'SOLES' as moneda,e.n_prioridad,e.concepto,e.descripcion_min, " + 
+				"			i.importe as importe_xpagar,0,(i.importe - 0) as deuda, 'RECIBO NO UBICADO' as estado, " + 
+				"dp.coe_alumno,dp.coe_alu_personal,dp.tel_alu_movil,dp.tel_alumno,dp.des_doc_identidad,dp.did_alumno, " + 
+				"dp.dir_tip_via,dp.dir_tip_via_nom,dp.dir_num_puerta,dp.dir_num_piso,dp.dir_num_dpto, " + 
+				"dp.dir_num_mz,dp.dir_num_lote,dp.dir_num_km,dp.dir_tip_loc, " + 
+				"dp.dir_tip_loc_nom,u.departamento,u.provincia,u.distrito " + 
+				"from importe_alumno i " + 
+				"inner join alumno_programa a  " + 
+				"on (a.cod_alumno=CAST(i.cod_alumno as varchar) and a.id_programa=i.cod_programa) " + 
+				"inner join programa d " + 
+				"on (a.id_programa=d.id_programa) " + 
+				"left outer join alumno_programa_beneficio f " + 
+				"on (a.cod_alumno=f.cod_alumno) " + 
+				"inner join concepto e " + 
+				"on (i.cod_concepto=e.id_concepto ) " + 
+				"left outer join sum_dpersonales dp " + 
+				"on (a.cod_alumno=dp.cod_alumno " + 
+				"and dp.semestre=(select max(dp1.semestre)  " + 
+				"								from sum_dpersonales dp1  " + 
+				"								where dp1.cod_alumno=dp.cod_alumno)) " + 
+				"left outer join ubigeo u " + 
+				"on (u.idubigeo=CONCAT(dp.dir_ubi_depa, dp.dir_ubi_prov,dp.dir_ubi_dist)) " + 
+				"where  " + 
+				"	a.cna is null " + 
+				"and substring(a.anio_ingreso,1,4) between '"+fechaInicial+"' and '"+fechaFinal
+				+"' " + 
+				"and CAST(substring(a.cod_alumno,1,2) as integer)>=16 " + 
+				"and i.importe>0.0  " + 
+				"and not exists (select 1 " + 
+				"from recaudaciones c " + 
+				"where c.cod_alumno=a.cod_alumno " + 
+				"and c.id_concepto=i.cod_concepto)  " + 
+				"order by 7 desc,5,2,3,13; " + 
+				"";
+		
+		System.out.println("El sql es "+ sql);
+		
+		RowMapper<CuentasPorCobrar2> rowMapper=new CuentasPorCobrarRowMapper2();
+		System.out.println("llego hasta el rowMapper cuentas por cobrar");
+		List<CuentasPorCobrar2> list=this.jdbcTemplate.query(sql, rowMapper);
 		System.out.println("Paso a ejecutar el query");
 		return list;
 	}
