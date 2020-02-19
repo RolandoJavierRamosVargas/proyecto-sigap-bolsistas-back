@@ -442,6 +442,7 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadController {
 	@RequestMapping(value = "/actualizar", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public boolean doRecaudacionesJOINAlumnoJOINConceptoJOINFacultadActualizar(@RequestBody DataActualizar dataactualizar) throws ParseException {
 		logger.info("> doRecaudacionesJOINAlumnoJOINConceptoJOINFacultadActualizar " +dataactualizar );
+		System.out.println(dataactualizar);
 		
 		String idRec = dataactualizar.getIdRec();
 
@@ -475,7 +476,7 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadController {
 		try {
 			
 			logger.info(">>>>>>>: "+Integer.parseInt(id_concepto)+" <<<< "+id_moneda);
-			response = recaudacionesJOINAlumnoJOINConceptoJOINFacultadservice.updaterecaudacionesJOINAlumnoJOINConceptoJOINFacultad(Integer.parseInt(id_concepto),id_moneda,formateador.parse(fecha),recibo,Integer.parseInt(ciclo),Integer.parseInt(idRec), Integer.parseInt(importe), ubicacion, ctabanco, Boolean.valueOf(validado));		
+			response = recaudacionesJOINAlumnoJOINConceptoJOINFacultadservice.updaterecaudacionesJOINAlumnoJOINConceptoJOINFacultad(Integer.parseInt(id_concepto),id_moneda,formateador.parse(fecha),recibo,Integer.parseInt(ciclo),Integer.parseInt(idRec), Double.parseDouble(importe), ubicacion, ctabanco, Boolean.valueOf(validado));		
 			logger.info("> resp0: "+response);
 			
 			

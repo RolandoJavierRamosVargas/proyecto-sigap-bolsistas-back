@@ -29,8 +29,9 @@ public interface IRecaudacionesJOINAlumnoJOINConceptoJOINFacultadService {
 	
 	/*para login*/
 	
-	List<CodigosporNomApe> getCodigoByNombreCodAlumno(String nomApe, String codAlumno);				
-	boolean updaterecaudacionesJOINAlumnoJOINConceptoJOINFacultad(Integer id_concepto,String moneda,Date fecha,String recibo,int ciclo,int idRec, int importe, String ubicacion, String ctabanco, Boolean validado);
+	List<CodigosporNomApe> getCodigoByNombreCodAlumno(String nomApe, String codAlumno);	
+	
+	boolean updaterecaudacionesJOINAlumnoJOINConceptoJOINFacultad(Integer id_concepto,String moneda,Date fecha,String recibo,int ciclo,int idRec, Double importe, String ubicacion, String ctabanco, Boolean validado);
 	
 	boolean insertObservacion(String observacion, Integer idrec);
 	

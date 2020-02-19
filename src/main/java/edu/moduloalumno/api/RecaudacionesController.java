@@ -411,6 +411,19 @@ public class RecaudacionesController {
 		}
 		
 		
+		@RequestMapping(value="/cuentasPorCobrar2/exportExcelMasInfoPersonal/{fechaInicial}/{fechaFinal}",method=RequestMethod.GET)
+		public  ResponseEntity<InputStreamResource> exportExcelMasInfoPersonal(@PathVariable("fechaInicial") String fechaInicial,@PathVariable("fechaFinal") String fechaFinal) throws Exception{
+			
+			ByteArrayInputStream stream = recaudacionesService.exportAllDataMasInfo(fechaInicial.substring(0, 4), fechaFinal.substring(0, 4));
+
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Disposition", "attachment; filename=deudasMasInfo.xls");
+
+			return ResponseEntity.ok().headers(headers).body(new InputStreamResource(stream));
+			
+		}
+		
+		
 		
 		
 		

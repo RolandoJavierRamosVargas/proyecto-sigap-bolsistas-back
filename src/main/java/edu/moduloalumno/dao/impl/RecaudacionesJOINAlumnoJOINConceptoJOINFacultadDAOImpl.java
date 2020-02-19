@@ -474,7 +474,7 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadDAOImpl implements I
 	}
 
 	@Override
-	public boolean updateRecaudacionesJOINAlumnoJOINConceptoJOINFacultad(Integer id_concepto,String moneda,Date fecha, String numero,int ciclo,int idRec, int importe, String ubicacion, String ctabanco, Boolean validado) {
+	public boolean updateRecaudacionesJOINAlumnoJOINConceptoJOINFacultad(Integer id_concepto,String moneda,Date fecha, String numero,int ciclo,int idRec, Double importe, String ubicacion, String ctabanco, Boolean validado) {
 		boolean validar = false;
 		logger.info("Facultad DAO validado "+validado);
 		if(validado)

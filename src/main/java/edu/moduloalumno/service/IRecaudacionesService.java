@@ -59,5 +59,6 @@ public interface IRecaudacionesService {
 	List<CuentasPorCobrar2> getCuentasPorCobrar2(String fechaInicial,String fechaFinal);
 	
 	ByteArrayInputStream exportAllData(String fechaInicial,String fechaFinal) throws Exception;
+	ByteArrayInputStream exportAllDataMasInfo(String fechaInicio,String fechaFin) throws Exception;
 	
 }
