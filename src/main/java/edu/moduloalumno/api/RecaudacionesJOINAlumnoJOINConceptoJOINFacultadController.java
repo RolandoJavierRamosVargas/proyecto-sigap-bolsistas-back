@@ -446,6 +446,7 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadController {
 		
 		String idRec = dataactualizar.getIdRec();
 
+		
 		String fecha = dataactualizar.getFecha();
 		
 		String id_concepto = dataactualizar.getId_concepto();
@@ -464,6 +465,8 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadController {
 		
 		String validado = dataactualizar.getValidado();
 		
+		String repitencia=dataactualizar.getRepitencia();
+		
 		logger.info("id:concepto: "+id_concepto);
 		logger.info("valor:validado: "+validado);
 		
@@ -476,7 +479,7 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadController {
 		try {
 			
 			logger.info(">>>>>>>: "+Integer.parseInt(id_concepto)+" <<<< "+id_moneda);
-			response = recaudacionesJOINAlumnoJOINConceptoJOINFacultadservice.updaterecaudacionesJOINAlumnoJOINConceptoJOINFacultad(Integer.parseInt(id_concepto),id_moneda,formateador.parse(fecha),recibo,Integer.parseInt(ciclo),Integer.parseInt(idRec), Double.parseDouble(importe), ubicacion, ctabanco, Boolean.valueOf(validado));		
+			response = recaudacionesJOINAlumnoJOINConceptoJOINFacultadservice.updaterecaudacionesJOINAlumnoJOINConceptoJOINFacultad(Integer.parseInt(id_concepto),id_moneda,formateador.parse(fecha),recibo,Integer.parseInt(ciclo),Integer.parseInt(idRec), Double.parseDouble(importe), ubicacion, ctabanco, Boolean.valueOf(validado),repitencia);		
 			logger.info("> resp0: "+response);
 			
 			

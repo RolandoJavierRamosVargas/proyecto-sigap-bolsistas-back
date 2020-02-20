@@ -12,7 +12,16 @@ public class DataActualizar {
 	private String ubicacion;
 	private String ctabanco;
 	private String validado;
+	private String repitencia;
 	
+	
+	
+	public String getRepitencia() {
+		return repitencia;
+	}
+	public void setRepitencia(String repitencia) {
+		this.repitencia = repitencia;
+	}
 	public String getId_concepto() {
 		return id_concepto;
 	}
@@ -74,13 +83,13 @@ public class DataActualizar {
 	public void setValidado(String validado) {
 		this.validado = validado;
 	}
-		
 	@Override
 	public String toString() {
 		return "DataActualizar [idRec=" + idRec + ", fecha=" + fecha + ", id_concepto=" + id_concepto + ", id_moneda="
-				+ id_moneda + ", recibo=" + recibo + ", ciclo=" + ciclo + ", importe=" + importe + ", ubicacion=" + ubicacion + ", ctabanco=" + ctabanco +
-				", validado=" + validado + "]";
+				+ id_moneda + ", recibo=" + recibo + ", ciclo=" + ciclo + ", importe=" + importe + ", ubicacion="
+				+ ubicacion + ", ctabanco=" + ctabanco + ", validado=" + validado + ", repitencia=" + repitencia + "]";
 	}
+	
 	
 	
 	

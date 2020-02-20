@@ -34,8 +34,18 @@ public class Recaudaciones implements Serializable {
     private String siglaProg;
 
 	private String observacion;
+	
+	private String repitencia;
     
-    public String getSiglaProg() {
+    public String getRepitencia() {
+		return repitencia;
+	}
+
+	public void setRepitencia(String repitencia) {
+		this.repitencia = repitencia;
+	}
+
+	public String getSiglaProg() {
     	return siglaProg;
     }
     

@@ -46,7 +46,7 @@ public class RecaudacionesDAOImpl implements IRecaudacionesDAO {
 	@Override
 	public List<Recaudaciones> getAllRecaudaciones() {
 		
-		String sql = "SELECT id_rec, moneda, numero, importe, carnet, autoseguro, ave, devol_tran, observacion, fecha, validado, id_alum, id_concepto, id_registro, cod_alumno, id_programa, id_ubicacion, id_tipo FROM recaudaciones";		
+		String sql = "SELECT id_rec, moneda, numero, importe, carnet, autoseguro, ave, devol_tran, observacion, fecha, validado, id_alum, id_concepto, id_registro, cod_alumno, id_programa, id_ubicacion, id_tipo , repitencia FROM recaudaciones";		
 		RowMapper<Recaudaciones> rowMapper = new RecaudacionesRowMapper();
 		return this.jdbcTemplate.query(sql, rowMapper);
 	}

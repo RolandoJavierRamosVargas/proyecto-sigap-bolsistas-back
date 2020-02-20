@@ -51,8 +51,19 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultad {
     private String estado_civil;
 	
 	private boolean validado;
+	
+	private String repitencia;
+	
     
-    public String getEstado() {
+    public String getRepitencia() {
+		return repitencia;
+	}
+
+	public void setRepitencia(String repitencia) {
+		this.repitencia = repitencia;
+	}
+
+	public String getEstado() {
 		return estado;
 	}
 
@@ -281,16 +292,20 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultad {
 	public void setEstado_civil(String estado_civil) {
 		this.estado_civil = estado_civil;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "RecaudacionesJOINAlumnoJOINConceptoJOINFacultad [idRec=" + idRec + ", idAlum=" + idAlum + ", apeNom="
-				+ apeNom + ", concepto=" + concepto + ", idconcepto=" + idconcepto + ", numero=" + numero + ", dni="
-				+ dni + ", nombre=" + nombre + ", moneda=" + moneda + ", importe=" + importe + ", fecha=" + fecha
-				+ ", idPrograma=" + idPrograma + ", nomPrograma=" + nomPrograma + ", codAlumno=" + codAlumno
-				+ ", observacion=" + observacion + ", validado=" + validado +"]";
+				+ apeNom + ", ciclo=" + ciclo + ", concepto=" + concepto + ", idconcepto=" + idconcepto + ", numero="
+				+ numero + ", dni=" + dni + ", nombre=" + nombre + ", moneda=" + moneda + ", moneda2=" + moneda2
+				+ ", importe=" + importe + ", importe_tc=" + importe_tc + ", fecha=" + fecha + ", anio_ingreso="
+				+ anio_ingreso + ", idPrograma=" + idPrograma + ", nomPrograma=" + nomPrograma + ", sigla_programa="
+				+ sigla_programa + ", codAlumno=" + codAlumno + ", estado=" + estado + ", descripcion_ubi="
+				+ descripcion_ubi + ", descripcion_tipo=" + descripcion_tipo + ", estado_civil=" + estado_civil
+				+ ", validado=" + validado + ", repitencia=" + repitencia + ", observacion=" + observacion + "]";
 	}
-
+	
+	
 	
 
 	

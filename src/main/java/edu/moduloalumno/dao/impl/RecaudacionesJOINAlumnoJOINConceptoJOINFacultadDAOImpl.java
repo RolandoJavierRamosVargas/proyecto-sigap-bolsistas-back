@@ -184,7 +184,7 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadDAOImpl implements I
         @Override
 		public List<RecaudacionesJOINAlumnoJOINConceptoJOINFacultad> getRecaudacionesJOINAlumnoJOINConceptoJOINFacultadByCodigo(String codigo) {		
 		
-		String sql="select r.id_rec, r.id_alum, rc.estado, " +  
+		String sql="select r.repitencia, r.id_rec, r.id_alum, rc.estado,  " +  
 		"ap.nom_alumno || ' ' || ap.ape_paterno || ' ' || ap.ape_materno as ape_nom, " +  
 		"r.ciclo,c.concepto,c.id_concepto, ap.dni_m as dni, " +  
 		"r.numero, f.nombre,  m.id_moneda, m.moneda, r.importe, " +  
@@ -474,7 +474,7 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadDAOImpl implements I
 	}
 
 	@Override
-	public boolean updateRecaudacionesJOINAlumnoJOINConceptoJOINFacultad(Integer id_concepto,String moneda,Date fecha, String numero,int ciclo,int idRec, Double importe, String ubicacion, String ctabanco, Boolean validado) {
+	public boolean updateRecaudacionesJOINAlumnoJOINConceptoJOINFacultad(Integer id_concepto,String moneda,Date fecha, String numero,int ciclo,int idRec, Double importe, String ubicacion, String ctabanco, Boolean validado,String repitencia) {
 		boolean validar = false;
 		logger.info("Facultad DAO validado "+validado);
 		if(validado)
@@ -483,9 +483,9 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadDAOImpl implements I
 			validar = false;
 		
 		logger.info("Facultad DAO "+fecha+" "+" "+numero+" "+idRec);
-		String sql = "UPDATE recaudaciones SET id_concepto=?,moneda=?,fecha = ?, numero = ?,ciclo=?, importe=?, id_ubicacion = (select id_ubicacion from ubicacion where descripcion = ?), id_tipo = (select id_tipo from tipo where descripcion = ?), validado = ? WHERE id_rec = ?";
+		String sql = "UPDATE recaudaciones SET id_concepto=?,moneda=?,fecha = ?, numero = ?,ciclo=?, importe=?, id_ubicacion = (select id_ubicacion from ubicacion where descripcion = ?), id_tipo = (select id_tipo from tipo where descripcion = ?), validado = ? , repitencia = ? WHERE id_rec = ?";
 		logger.info("Facultad DAO "+sql);
-		Integer resp = jdbcTemplate.update(sql,id_concepto,moneda,fecha,numero,ciclo,importe,ubicacion,ctabanco,validar,idRec);
+		Integer resp = jdbcTemplate.update(sql,id_concepto,moneda,fecha,numero,ciclo,importe,ubicacion,ctabanco,validar,repitencia,idRec);
 		logger.info("resp :"+resp);
 		if(resp.equals(1)) {
 			return true;
