@@ -52,7 +52,7 @@ public class ImporteAlumnoController {
         @RequestMapping(value = "/search/{cod_alumno}/{cod_programa}/{cod_concepto}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     	public ResponseEntity<ImporteAlumno> getImporteAlumnoImporte(@PathVariable("cod_alumno") String cod_alumno,@PathVariable("cod_programa") Integer cod_programa,@PathVariable("cod_concepto") Integer cod_concepto) {
     		logger.info("> getImporteAlumnoImporte [ImporteAlumno]");
-
+    		System.out.println("Entro al importe del alumno");
     		ImporteAlumno importe = null;
 
     		try {

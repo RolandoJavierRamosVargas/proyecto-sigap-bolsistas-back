@@ -12,7 +12,7 @@ public class ImporteAlumno implements Serializable {
     
     private Integer cod_concepto;
     
-    private double importe;
+    private Double importe;
 
     public ImporteAlumno() {
     }

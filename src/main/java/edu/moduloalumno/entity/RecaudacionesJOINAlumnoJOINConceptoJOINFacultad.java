@@ -54,8 +54,20 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultad {
 	
 	private String repitencia;
 	
+	private String id_tip_grado;
+	
+	
+	
     
-    public String getRepitencia() {
+    public String getId_tip_grado() {
+		return id_tip_grado;
+	}
+
+	public void setId_tip_grado(String id_tip_grado) {
+		this.id_tip_grado = id_tip_grado;
+	}
+
+	public String getRepitencia() {
 		return repitencia;
 	}
 

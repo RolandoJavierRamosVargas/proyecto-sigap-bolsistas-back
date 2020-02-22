@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.moduloalumno.component.FloatFormat;
 import edu.moduloalumno.entity.CodigosporNomApe;
+import edu.moduloalumno.entity.RecaudacionesAlumnoConConcepto;
 import edu.moduloalumno.entity.RecaudacionesJOINAlumnoJOINConceptoJOINFacultad;
 import edu.moduloalumno.model.DataActualizar;
 import edu.moduloalumno.model.Filtro;
@@ -168,19 +169,19 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadController {
 
 
 	/**/  @RequestMapping(value = "/listar_validados/{codigo}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<RecaudacionesJOINAlumnoJOINConceptoJOINFacultad>> getRecaudacionesJOINAlumnoJOINConceptoJOINFacultadByValidados(@PathVariable("codigo") String codigo) {
+	public ResponseEntity<List<RecaudacionesAlumnoConConcepto>> getRecaudacionesJOINAlumnoJOINConceptoJOINFacultadByValidados(@PathVariable("codigo") String codigo) {
 		logger.info("> getRecaudacionesJOINAlumnoJOINConceptoJOINFacultadByValidados [Recaudaciones]");
 
-		List<RecaudacionesJOINAlumnoJOINConceptoJOINFacultad> list = null;
-
+		List<RecaudacionesAlumnoConConcepto> list = null;
+		String a;
 		try {
 
 			list = recaudacionesJOINAlumnoJOINConceptoJOINFacultadservice.getRecaudacionesJOINAlumnoJOINConceptoJOINFacultadByValidados(codigo);
 			if (list == null) {
-				list = new ArrayList<RecaudacionesJOINAlumnoJOINConceptoJOINFacultad>();
+				list = new ArrayList<RecaudacionesAlumnoConConcepto>();
 			}
 			else {
-				for(RecaudacionesJOINAlumnoJOINConceptoJOINFacultad r:list) {
+				for(RecaudacionesAlumnoConConcepto r:list) {
 					if(r.getMoneda().equals("113")) {
 						r.setImporte_tc(( (float) r.getImporte() )*floatformat.dolares_a_soles(r.getFecha().toString()).getCompra());					
 					}
@@ -194,11 +195,11 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadController {
 
 		} catch (Exception e) {
 			logger.error("Unexpected Exception caught.", e);
-			return new ResponseEntity<List<RecaudacionesJOINAlumnoJOINConceptoJOINFacultad>>(list, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<List<RecaudacionesAlumnoConConcepto>>(list, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 		logger.info("< getRecaudacionesJOINAlumnoJOINConceptoJOINFacultadByValidados [Recaudaciones]");
-		return new ResponseEntity<List<RecaudacionesJOINAlumnoJOINConceptoJOINFacultad>>(list, HttpStatus.OK);
+		return new ResponseEntity<List<RecaudacionesAlumnoConConcepto>>(list, HttpStatus.OK);
 	}
 
   	/*

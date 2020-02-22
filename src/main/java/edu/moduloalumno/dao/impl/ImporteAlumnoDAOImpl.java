@@ -32,9 +32,10 @@ public class ImporteAlumnoDAOImpl implements IImporteAlumnoDAO{
         @Override
     	public ImporteAlumno getImporteAlumnoImporte(String cod_alumno,int cod_programa, int cod_concepto) {
     		String sql = "SELECT cod_alumno, cod_programa, cod_concepto, importe FROM importe_alumno WHERE cod_alumno = ? and cod_programa = ? and cod_concepto = ?";
-    		
+    		System.out.println("el importe alumno es  ");
     		RowMapper<ImporteAlumno> rowMapper = new BeanPropertyRowMapper<ImporteAlumno>(ImporteAlumno.class);
     		ImporteAlumno importealumno = jdbcTemplate.queryForObject(sql, rowMapper, cod_alumno,cod_programa,cod_concepto);
+    		System.out.println("el importe alumno es  \n"+importealumno);
     		return importealumno;
     	}
         
