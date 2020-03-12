@@ -22,13 +22,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping("/importealumno")
 public class ImporteAlumnoController {
-    
-        private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private IImporteAlumnoService service;
-        
-        @RequestMapping(value = "/buscar/{cod_alumno}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+
+	@RequestMapping(value = "/buscar/{cod_alumno}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ImporteAlumno> getImporteAlumnoByAlumnoId(@PathVariable("cod_alumno") Integer cod_alumno) {
 		logger.info("> getImporteAlumnoByAlumnoId [ImporteAlumno]");
 
@@ -39,7 +39,7 @@ public class ImporteAlumnoController {
 			if (impor == null) {
 				impor = new ImporteAlumno();
 			}
-			
+
 		} catch (Exception e) {
 			logger.error("Unexpected Exception caught.", e);
 			return new ResponseEntity<ImporteAlumno>(impor, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -48,32 +48,30 @@ public class ImporteAlumnoController {
 		logger.info("< getImporteAlumnoById [ImporteAlumno]");
 		return new ResponseEntity<ImporteAlumno>(impor, HttpStatus.OK);
 	}
-        
-        @RequestMapping(value = "/search/{cod_alumno}/{cod_programa}/{cod_concepto}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    	public ResponseEntity<ImporteAlumno> getImporteAlumnoImporte(@PathVariable("cod_alumno") String cod_alumno,@PathVariable("cod_programa") Integer cod_programa,@PathVariable("cod_concepto") Integer cod_concepto) {
-    		logger.info("> getImporteAlumnoImporte [ImporteAlumno]");
-    		System.out.println("Entro al importe del alumno");
-    		ImporteAlumno importe = null;
 
-    		try {
-    			importe = service.getImporteAlumnoImporte(cod_alumno, cod_programa, cod_concepto);
-    			
-    			if (importe == null) {
-    				importe = new ImporteAlumno();
-    			}
-    		} catch (Exception e) {
-    			logger.error("Unexpected Exception caught.", e);
-    			return new ResponseEntity<ImporteAlumno>(importe, HttpStatus.INTERNAL_SERVER_ERROR);
-    		}
-    		
+	@RequestMapping(value = "/search/{cod_alumno}/{cod_programa}/{cod_concepto}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ImporteAlumno> getImporteAlumnoImporte(@PathVariable("cod_alumno") String cod_alumno,
+			@PathVariable("cod_programa") Integer cod_programa, @PathVariable("cod_concepto") Integer cod_concepto) {
+		logger.info("> getImporteAlumnoImporte [ImporteAlumno]");
+		System.out.println("Entro al importe del alumno");
+		ImporteAlumno importe = null;
 
-    		logger.info("< getImporteAlumnoImporte [ImporteAlumno]");
-    		return new ResponseEntity<ImporteAlumno>(importe, HttpStatus.OK);
-    	}
-        
-        
-    		
-        @RequestMapping(value = "/listar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		try {
+			importe = service.getImporteAlumnoImporte(cod_alumno, cod_programa, cod_concepto);
+
+			if (importe == null) {
+				importe = new ImporteAlumno();
+			}
+		} catch (Exception e) {
+			logger.error("Unexpected Exception caught.", e);
+			return new ResponseEntity<ImporteAlumno>(importe, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		logger.info("< getImporteAlumnoImporte [ImporteAlumno]");
+		return new ResponseEntity<ImporteAlumno>(importe, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/listar", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ImporteAlumno>> getAllImporteAlumnos() {
 		logger.info("> getAllImporteAlumnos [ImporteAlumno]");
 
@@ -84,7 +82,7 @@ public class ImporteAlumnoController {
 			if (list == null) {
 				list = new ArrayList<ImporteAlumno>();
 			}
-			
+
 		} catch (Exception e) {
 			logger.error("Unexpected Exception caught.", e);
 			return new ResponseEntity<List<ImporteAlumno>>(list, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -93,35 +91,34 @@ public class ImporteAlumnoController {
 		logger.info("< getAllImporteAlumnos [ImporteAlumno]");
 		return new ResponseEntity<List<ImporteAlumno>>(list, HttpStatus.OK);
 	}
-        
-        @RequestMapping(value = "/filtrarimporte", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    	public ResponseEntity<Double> getImporteAlumno(@RequestBody ImporteAlumno importealumno) {
-    		logger.info("> getImporteAlumno [ImporteAlumno]");
 
-    		System.out.println("LLEGA HASTA API");
-    		double importe=0;
-    		try {
-    			importe = service.getImporteAlumno(importealumno);
+	@RequestMapping(value = "/filtrarimporte", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Double> getImporteAlumno(@RequestBody ImporteAlumno importealumno) {
+		logger.info("> getImporteAlumno [ImporteAlumno]");
 
-    			
-    		} catch (Exception e) {
-    			logger.error("Unexpected Exception caught.", e);
-    			return new ResponseEntity<Double>(HttpStatus.INTERNAL_SERVER_ERROR);
-    		}
+		System.out.println("LLEGA HASTA API");
+		double importe = 0;
+		try {
+			importe = service.getImporteAlumno(importealumno);
 
-    		logger.info("< getImporteAlumno [ImporteAlumno]");
-    		return new ResponseEntity<Double>(importe, HttpStatus.OK);
-    	}
-        
-        @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+		} catch (Exception e) {
+			logger.error("Unexpected Exception caught.", e);
+			return new ResponseEntity<Double>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		logger.info("< getImporteAlumno [ImporteAlumno]");
+		return new ResponseEntity<Double>(importe, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ImporteAlumno> addImporteAlumno(@RequestBody ImporteAlumno importealumno) {
 
 		logger.info("> addImporteAlumno [ImporteAlumno]");
-		
-		//ImporteAlumno newImporteAlumno = null;
-		
+
+		// ImporteAlumno newImporteAlumno = null;
+
 		try {
-                    service.addImporteAlumno(importealumno);
+			service.addImporteAlumno(importealumno);
 		} catch (Exception e) {
 			return new ResponseEntity<ImporteAlumno>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -129,30 +126,29 @@ public class ImporteAlumnoController {
 		logger.info("> addImporteAlumno [ImporteAlumno]");
 		return new ResponseEntity<ImporteAlumno>(importealumno, HttpStatus.CREATED);
 	}
-        
-        @RequestMapping(value = "/update", method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    	public ResponseEntity<ImporteAlumno> updateImporteAlumno(@RequestBody ImporteAlumno newimportealumno) {
 
-    		logger.info("> updateImporteAlumno [ImporteAlumno]");
-    		
-    		String coalu = newimportealumno.getCod_alumno();
-    		int copro = newimportealumno.getCod_programa();
-    		int cocon = newimportealumno.getCod_concepto();
-    		double im = newimportealumno.getImporte();
-    		
-    		ImporteAlumno importealumno = new ImporteAlumno(coalu,copro,cocon,im);
-    		
-    		try {
-    			service.updateImporteAlumno(importealumno);
-                        
-           
-    		} catch (Exception e) {
-    			return new ResponseEntity<ImporteAlumno>(HttpStatus.INTERNAL_SERVER_ERROR);
-    		}
+	@RequestMapping(value = "/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ImporteAlumno> updateImporteAlumno(@RequestBody ImporteAlumno newimportealumno) {
 
-    		logger.info("> updateImporteAlumno [ImporteAlumno]");
-    		return new ResponseEntity<ImporteAlumno>(importealumno, HttpStatus.CREATED);
-    	}
-        
+		logger.info("> updateImporteAlumno [ImporteAlumno]");
+		System.out.println(newimportealumno);
+
+		String coalu = newimportealumno.getCod_alumno();
+		int copro = newimportealumno.getCod_programa();
+		int cocon = newimportealumno.getCod_concepto();
+		double im = newimportealumno.getImporte();
+
+		ImporteAlumno importealumno = new ImporteAlumno(coalu, copro, cocon, im);
+
+		try {
+			service.updateImporteAlumno(importealumno);
+
+		} catch (Exception e) {
+			return new ResponseEntity<ImporteAlumno>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		logger.info("> updateImporteAlumno [ImporteAlumno]");
+		return new ResponseEntity<ImporteAlumno>(importealumno, HttpStatus.CREATED);
+	}
+
 }
-

@@ -15,9 +15,9 @@ public class CuentasPorCobrar {
 	Integer n_prioridad;
 	String concepto;
 	String descripcion_min;
-	Integer importe_xpagar;
-	Integer importe_pagado;
-	Integer deuda;
+	Double importe_xpagar;
+	Double importe_pagado;
+	Double deuda;
 	String estado;
 	
 	
@@ -105,22 +105,22 @@ public class CuentasPorCobrar {
 	public void setDescripcion_min(String descripcion_min) {
 		this.descripcion_min = descripcion_min;
 	}
-	public Integer getImporte_pagado() {
+	public Double getImporte_pagado() {
 		return importe_pagado;
 	}
-	public void setImporte_pagado(Integer importe_pagado) {
+	public void setImporte_pagado(Double importe_pagado) {
 		this.importe_pagado = importe_pagado;
 	}
-	public Integer getImporte_xpagar() {
+	public Double getImporte_xpagar() {
 		return importe_xpagar;
 	}
-	public void setImporte_xpagar(Integer importe_xpagar) {
+	public void setImporte_xpagar(Double importe_xpagar) {
 		this.importe_xpagar = importe_xpagar;
 	}
-	public Integer getDeuda() {
+	public Double getDeuda() {
 		return deuda;
 	}
-	public void setDeuda(Integer deuda) {
+	public void setDeuda(Double deuda) {
 		this.deuda = deuda;
 	}
 	

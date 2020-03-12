@@ -31,6 +31,7 @@ public class ImporteAlumnoDAOImpl implements IImporteAlumnoDAO{
         
         @Override
     	public ImporteAlumno getImporteAlumnoImporte(String cod_alumno,int cod_programa, int cod_concepto) {
+        	System.out.println("EL COD DE CONCEPTO ES "+cod_concepto);
     		String sql = "SELECT cod_alumno, cod_programa, cod_concepto, importe FROM importe_alumno WHERE cod_alumno = ? and cod_programa = ? and cod_concepto = ?";
     		System.out.println("el importe alumno es  ");
     		RowMapper<ImporteAlumno> rowMapper = new BeanPropertyRowMapper<ImporteAlumno>(ImporteAlumno.class);
@@ -78,8 +79,10 @@ public class ImporteAlumnoDAOImpl implements IImporteAlumnoDAO{
         
         @Override
 	public void updateImporteAlumno(ImporteAlumno importealumno) {
+        System.out.println("ANTES DE ACTUALIZAR IMPORTE");
 		String sql = "UPDATE importe_alumno SET importe = ? WHERE cod_alumno = ? and cod_programa = ? and cod_concepto = ?";
 		jdbcTemplate.update(sql,importealumno.getImporte(),importealumno.getCod_alumno(),importealumno.getCod_programa(),importealumno.getCod_concepto());
+		System.out.println("DESPUES DE ACTUALIZAR IMPORTE");
     }
         
         @Override

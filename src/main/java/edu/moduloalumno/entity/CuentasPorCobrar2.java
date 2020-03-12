@@ -2,50 +2,105 @@ package edu.moduloalumno.entity;
 
 public class CuentasPorCobrar2 {
 
-	String cod_alumno;
-	String ape_paterno;
-	String ape_materno;
-	String nom_alumno;
-	Integer n_prioridad;
-	String sigla_programa;
-	String anio_ingreso;
-	String cod_perm;
-	Integer max_anio_estudio;
-	Integer beneficio_otorgado;
-	String autorizacion;
-	String moneda;//cambia
-	Integer n_prioridad2;
-	String concepto;
-	String descripcion_min;
-	Integer importe_xpagar;
-	Integer importe_pagado;
-	Integer deuda;
-	String estado;
-	String coe_alumno;
-	String coe_alu_personal;
-	String tel_alu_movil;
-	String tel_alumno;
-	String des_doc_identidad;
-	String did_alumno;
-	String dir_tip_via;
-	String dir_tip_via_nom;
-	Integer dir_num_puerta;
-	String dir_num_piso;
-	String dir_num_dpto;
-	String dir_num_mz;
-	String dir_num_lote;
-	String dir_num_km;
-	String dir_tip_loc;
-	String dir_tip_loc_nom;
-	String departamento;
-	String provincia;
-	String distrito;
+	private Integer id_programa;
+	private String id_moneda;
+	private Integer id_concepto;
+	
+	
+	private String cod_alumno;
+	private String ape_paterno;
+	private String ape_materno;
+	private String nom_alumno;
+	private Integer n_prioridad;
+	private String sigla_programa;
+	private String anio_ingreso;
+	private String cod_perm;
+	private Integer max_anio_estudio;
+	private Integer beneficio_otorgado;
+	private String autorizacion;
+	private String moneda;//cambia
+	private Integer n_prioridad2;
+	private String concepto;
+	private String descripcion_min;
+	private Double importe_xpagar;
+	private Double importe_pagado;
+	private Double deuda;
+	private String estado;
+	private String coe_alumno;
+	private String coe_alu_personal;
+	private String tel_alu_movil;
+	private String tel_alumno;
+	private String des_doc_identidad;
+	private String did_alumno;
+	private String dir_tip_via;
+	private String dir_tip_via_nom;
+	private Integer dir_num_puerta;
+	private String dir_num_piso;
+	private String dir_num_dpto;
+	private String dir_num_mz;
+	private String dir_num_lote;
+	private String dir_num_km;
+	private String dir_tip_loc;
+	private String dir_tip_loc_nom;
+	private String departamento;
+	private String provincia;
+	private String distrito;
 	
 	
 	
 	public CuentasPorCobrar2() {
 		
 	}
+
+
+	
+	
+	
+	public Integer getId_programa() {
+		return id_programa;
+	}
+
+
+
+
+
+	public void setId_programa(Integer id_programa) {
+		this.id_programa = id_programa;
+	}
+
+
+
+
+
+	public String getId_moneda() {
+		return id_moneda;
+	}
+
+
+
+
+
+	public void setId_moneda(String id_moneda) {
+		this.id_moneda = id_moneda;
+	}
+
+
+
+
+
+	public Integer getId_concepto() {
+		return id_concepto;
+	}
+
+
+
+
+
+	public void setId_concepto(Integer id_concepto) {
+		this.id_concepto = id_concepto;
+	}
+
+
 
 
 
@@ -229,37 +284,37 @@ public class CuentasPorCobrar2 {
 
 
 
-	public Integer getImporte_xpagar() {
+	public Double getImporte_xpagar() {
 		return importe_xpagar;
 	}
 
 
 
-	public void setImporte_xpagar(Integer importe_xpagar) {
+	public void setImporte_xpagar(Double importe_xpagar) {
 		this.importe_xpagar = importe_xpagar;
 	}
 
 
 
-	public Integer getImporte_pagado() {
+	public Double getImporte_pagado() {
 		return importe_pagado;
 	}
 
 
 
-	public void setImporte_pagado(Integer importe_pagado) {
+	public void setImporte_pagado(Double importe_pagado) {
 		this.importe_pagado = importe_pagado;
 	}
 
 
 
-	public Integer getDeuda() {
+	public Double getDeuda() {
 		return deuda;
 	}
 
 
 
-	public void setDeuda(Integer deuda) {
+	public void setDeuda(Double deuda) {
 		this.deuda = deuda;
 	}
 
@@ -505,9 +560,12 @@ public class CuentasPorCobrar2 {
 
 
 
+
+
 	@Override
 	public String toString() {
-		return "CuentasPorCobrar2 [cod_alumno=" + cod_alumno + ", ape_paterno=" + ape_paterno + ", ape_materno="
+		return "CuentasPorCobrar2 [id_programa=" + id_programa + ", id_moneda=" + id_moneda + ", id_concepto="
+				+ id_concepto + ", cod_alumno=" + cod_alumno + ", ape_paterno=" + ape_paterno + ", ape_materno="
 				+ ape_materno + ", nom_alumno=" + nom_alumno + ", n_prioridad=" + n_prioridad + ", sigla_programa="
 				+ sigla_programa + ", anio_ingreso=" + anio_ingreso + ", cod_perm=" + cod_perm + ", max_anio_estudio="
 				+ max_anio_estudio + ", beneficio_otorgado=" + beneficio_otorgado + ", autorizacion=" + autorizacion
@@ -522,6 +580,9 @@ public class CuentasPorCobrar2 {
 				+ dir_tip_loc + ", dir_tip_loc_nom=" + dir_tip_loc_nom + ", departamento=" + departamento
 				+ ", provincia=" + provincia + ", distrito=" + distrito + "]";
 	}
+
+
+
 	
 	
 		

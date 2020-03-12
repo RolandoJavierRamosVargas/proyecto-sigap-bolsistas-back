@@ -7,12 +7,17 @@ import org.springframework.jdbc.core.RowMapper;
 
 import edu.moduloalumno.entity.CuentasPorCobrar2;
 
-public class CuentasPorCobrarRowMapper2 implements RowMapper<CuentasPorCobrar2>{
-
+public class CuentasPorCobrarV3RowMapper implements RowMapper<CuentasPorCobrar2> {
 	@Override
 	public CuentasPorCobrar2 mapRow(ResultSet rs, int rowNum) throws SQLException {
 		// TODO Auto-generated method stub
 		CuentasPorCobrar2 cuentasXcobrar2= new CuentasPorCobrar2();
+		
+		cuentasXcobrar2.setId_programa(rs.getInt("id_programa"));
+		cuentasXcobrar2.setId_concepto(rs.getInt("id_concepto"));
+		cuentasXcobrar2.setId_moneda(rs.getString("id_moneda"));
+		
+		
 		cuentasXcobrar2.setCod_alumno(rs.getString("cod_alumno"));
 		cuentasXcobrar2.setApe_paterno(rs.getString("ape_paterno"));
 		cuentasXcobrar2.setApe_materno(rs.getString("ape_materno"));
@@ -55,6 +60,4 @@ public class CuentasPorCobrarRowMapper2 implements RowMapper<CuentasPorCobrar2>{
 		
 		return cuentasXcobrar2;
 	}
-
 }
-

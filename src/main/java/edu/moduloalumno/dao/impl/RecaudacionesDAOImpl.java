@@ -16,6 +16,7 @@ import edu.moduloalumno.entity.CuentasPorCobrar2;
 import edu.moduloalumno.entity.Recaudaciones;
 import edu.moduloalumno.rowmapper.CuentasPorCobrarRowMapper;
 import edu.moduloalumno.rowmapper.CuentasPorCobrarRowMapper2;
+import edu.moduloalumno.rowmapper.CuentasPorCobrarV3RowMapper;
 import edu.moduloalumno.rowmapper.RecaudacionesRowMapper;
 
 @Transactional
@@ -344,12 +345,12 @@ public class RecaudacionesDAOImpl implements IRecaudacionesDAO {
 
 	@Override
 	public List<CuentasPorCobrar2> getCuentasPorCobrar2(String fechaInicial, String fechaFinal) {
-		String sql="select a.cod_alumno,a.ape_paterno,a.ape_materno,a.nom_alumno,d.n_prioridad,d.sigla_programa, " + 
+		String sql="select a.cod_alumno,a.ape_paterno,a.ape_materno,a.nom_alumno,d.n_prioridad,d.sigla_programa, d.id_programa , " + 
 				"substring(a.anio_ingreso,1,4) as anio_ingreso,a.cod_perm, coalesce(a.max_anio_estudio,0) as max_anio_estudio,f.beneficio_otorgado,f.autorizacion, " + 
 				"CASE WHEN c.moneda='108' THEN 'SOLES' " + 
 				"            WHEN c.moneda='113' THEN 'DOLARES' " + 
 				"            ELSE '?'  " + 
-				"       END as moneda,e.n_prioridad as prioridad,e.concepto,e.descripcion_min, " + 
+				"       END as moneda, c.moneda as id_moneda, e.n_prioridad as prioridad,e.id_concepto,e.concepto,e.descripcion_min, " + 
 				"			i.importe as importe_xpagar,c.importe_pagado,(i.importe - c.importe_pagado) as deuda, " + 
 				"			'RECIBO VERIFICADO' as estado, " + 
 				"dp.coe_alumno,dp.coe_alu_personal,dp.tel_alu_movil,dp.tel_alumno,dp.des_doc_identidad,dp.did_alumno, " + 
@@ -386,9 +387,9 @@ public class RecaudacionesDAOImpl implements IRecaudacionesDAO {
 				"and c.moneda='108' " + 
 				"and i.importe>0.0 and (i.importe - c.importe_pagado) > 10 " + 
 				"UNION " + 
-				"select a.cod_alumno,a.ape_paterno,a.ape_materno,a.nom_alumno,d.n_prioridad,d.sigla_programa,			 " + 
+				"select a.cod_alumno,a.ape_paterno,a.ape_materno,a.nom_alumno,d.n_prioridad,d.sigla_programa,	d.id_programa,		 " + 
 				"substring(a.anio_ingreso,1,4) as anio_ingreso,a.cod_perm, coalesce(a.max_anio_estudio,0) as max_anio_estudio,f.beneficio_otorgado,f.autorizacion, " + 
-				"'SOLES' as moneda,e.n_prioridad,e.concepto,e.descripcion_min, " + 
+				"'SOLES' as moneda,'108' as id_moneda,e.n_prioridad,e.id_concepto,e.concepto,e.descripcion_min, " + 
 				"			i.importe as importe_xpagar,0,(i.importe - 0) as deuda, 'RECIBO NO UBICADO' as estado, " + 
 				"dp.coe_alumno,dp.coe_alu_personal,dp.tel_alu_movil,dp.tel_alumno,dp.des_doc_identidad,dp.did_alumno, " + 
 				"dp.dir_tip_via,dp.dir_tip_via_nom,dp.dir_num_puerta,dp.dir_num_piso,dp.dir_num_dpto, " + 
@@ -425,7 +426,7 @@ public class RecaudacionesDAOImpl implements IRecaudacionesDAO {
 		
 		System.out.println("El sql es "+ sql);
 		
-		RowMapper<CuentasPorCobrar2> rowMapper=new CuentasPorCobrarRowMapper2();
+		RowMapper<CuentasPorCobrar2> rowMapper=new CuentasPorCobrarV3RowMapper();
 		System.out.println("llego hasta el rowMapper cuentas por cobrar");
 		List<CuentasPorCobrar2> list=this.jdbcTemplate.query(sql, rowMapper);
 		System.out.println("Paso a ejecutar el query");

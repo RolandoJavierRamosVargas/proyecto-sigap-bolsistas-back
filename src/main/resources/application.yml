@@ -1,7 +1,21 @@
 spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: rolando.ramos2@unmsm.edu.pe
+    password: rolandoramosvargas
+    
+    
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://67.205.143.180/tcs5
+    url: jdbc:postgresql://172.16.64.137/tcs3
     username: modulo4
     password: modulo4
 
@@ -20,3 +34,4 @@ banner:
   location: classpath:/example/banner.txt
  
 spring.mvc.contentnegotiation.media-types.xlsx : application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+

@@ -26,9 +26,9 @@ public class CuentasPorCobrarRowMapper implements RowMapper<CuentasPorCobrar>{
 		cuentasXcobrar.setN_prioridad(rs.getInt("n_prioridad"));
 		cuentasXcobrar.setConcepto(rs.getString("concepto"));
 		cuentasXcobrar.setDescripcion_min(rs.getString("descripcion_min"));
-		cuentasXcobrar.setImporte_xpagar(rs.getInt("importe_xpagar"));
-		cuentasXcobrar.setImporte_pagado(rs.getInt("importe_pagado"));
-		cuentasXcobrar.setDeuda(rs.getInt("deuda"));
+		cuentasXcobrar.setImporte_xpagar(rs.getDouble("importe_xpagar"));
+		cuentasXcobrar.setImporte_pagado(rs.getDouble("importe_pagado"));
+		cuentasXcobrar.setDeuda(rs.getDouble("deuda"));
 		cuentasXcobrar.setEstado(rs.getString("estado"));
 		return cuentasXcobrar;
 	}
