@@ -30,12 +30,12 @@ public class ImporteAlumnoDAOImpl implements IImporteAlumnoDAO{
 	}
         
         @Override
-    	public ImporteAlumno getImporteAlumnoImporte(String cod_alumno,int cod_programa, int cod_concepto) {
+    	public ImporteAlumno getImporteAlumnoImporte(String cod_alumno,int cod_programa, int cod_concepto,Integer id_tipo_recaudacion) {
         	System.out.println("EL COD DE CONCEPTO ES "+cod_concepto);
-    		String sql = "SELECT cod_alumno, cod_programa, cod_concepto, importe FROM importe_alumno WHERE cod_alumno = ? and cod_programa = ? and cod_concepto = ?";
+    		String sql = "SELECT cod_alumno, cod_programa, cod_concepto, importe,id_tipo_recaudacion,id_moneda FROM importe_alumno WHERE cod_alumno = ? and cod_programa = ? and cod_concepto = ? and id_tipo_recaudacion= ?";
     		System.out.println("el importe alumno es  ");
     		RowMapper<ImporteAlumno> rowMapper = new BeanPropertyRowMapper<ImporteAlumno>(ImporteAlumno.class);
-    		ImporteAlumno importealumno = jdbcTemplate.queryForObject(sql, rowMapper, cod_alumno,cod_programa,cod_concepto);
+    		ImporteAlumno importealumno = jdbcTemplate.queryForObject(sql, rowMapper, cod_alumno,cod_programa,cod_concepto,id_tipo_recaudacion);
     		System.out.println("el importe alumno es  \n"+importealumno);
     		return importealumno;
     	}
@@ -60,8 +60,8 @@ public class ImporteAlumnoDAOImpl implements IImporteAlumnoDAO{
         @Override
 	public void addImporteAlumno(ImporteAlumno importealumno) {
 		// Add ImporteAlumno
-		String sql = "INSERT INTO importe_alumno (cod_alumno, cod_programa, cod_concepto, importe) values (?,?, ?,?)";
-	    jdbcTemplate.update(sql,importealumno.getCod_alumno(),importealumno.getCod_programa(),importealumno.getCod_concepto(),importealumno.getImporte());
+		String sql = "INSERT INTO importe_alumno (cod_alumno, cod_programa, cod_concepto, importe,id_tipo_recaudacion,id_moneda) values (?,?,?,?,?,?)";
+	    jdbcTemplate.update(sql,importealumno.getCod_alumno(),importealumno.getCod_programa(),importealumno.getCod_concepto(),importealumno.getImporte(),importealumno.getId_tipo_recaudacion(),importealumno.getId_moneda());
 		/*
 	    KeyHolder keyHolder = new GeneratedKeyHolder();
 	    
@@ -80,8 +80,8 @@ public class ImporteAlumnoDAOImpl implements IImporteAlumnoDAO{
         @Override
 	public void updateImporteAlumno(ImporteAlumno importealumno) {
         System.out.println("ANTES DE ACTUALIZAR IMPORTE");
-		String sql = "UPDATE importe_alumno SET importe = ? WHERE cod_alumno = ? and cod_programa = ? and cod_concepto = ?";
-		jdbcTemplate.update(sql,importealumno.getImporte(),importealumno.getCod_alumno(),importealumno.getCod_programa(),importealumno.getCod_concepto());
+		String sql = "UPDATE importe_alumno SET importe = ? WHERE cod_alumno = ? and cod_programa = ? and cod_concepto = ? and id_tipo_recaudacion= ?";
+		jdbcTemplate.update(sql,importealumno.getImporte(),importealumno.getCod_alumno(),importealumno.getCod_programa(),importealumno.getCod_concepto(),importealumno.getId_tipo_recaudacion());
 		System.out.println("DESPUES DE ACTUALIZAR IMPORTE");
     }
         

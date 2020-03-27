@@ -25,6 +25,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import edu.moduloalumno.entity.CuentasPorCobrar2;
+import edu.moduloalumno.entity.DeudoresPosgradoMasInfo;
 import edu.moduloalumno.entity.NotificacionCorrelativo;
 import edu.moduloalumno.entity.NotificacionDeudas;
 import edu.moduloalumno.entity.SendMail;
@@ -51,8 +52,8 @@ public class MailServiceImpl implements IMailService {
 		MimeMessageHelper mail = new MimeMessageHelper(mimeMessage,true);
 		Gson gson = new Gson();
 		
-		Type listType = new TypeToken<ArrayList<CuentasPorCobrar2>>(){}.getType();
-		ArrayList<CuentasPorCobrar2> cuentas = gson.fromJson(email.getDatos(), listType);
+		Type listType = new TypeToken<ArrayList<DeudoresPosgradoMasInfo>>(){}.getType();
+		ArrayList<DeudoresPosgradoMasInfo> cuentas = gson.fromJson(email.getDatos(), listType);
 		
 		List<NotificacionCorrelativo> notificacion=null;
 		NotificacionCorrelativo notificacionCorrelativo=null;
@@ -65,13 +66,13 @@ public class MailServiceImpl implements IMailService {
 		String anio=notificacionCorrelativo.getAnio();
 		
 		
-		CuentasPorCobrar2 cuenta;
+		DeudoresPosgradoMasInfo cuenta;
 		String nuevoSubject;
 		String banco_codigoPago="<h3><b> Banco Pichincha, Cuenta UNMSM </b>: <span style=\"color:#0000FF\"> 270016684 </span> </h3>" ;
 		
 		Iterator iter=cuentas.iterator();
 			while(iter.hasNext()) {
-				cuenta=(CuentasPorCobrar2)iter.next();
+				cuenta=(DeudoresPosgradoMasInfo)iter.next();
 				notificacion_actual++;
 				nuevoSubject=(notificacion_actual<100)? email.getSubject()+" 0"+Integer.toString(notificacion_actual)+"-"+anio : email.getSubject()+" "+Integer.toString(notificacion_actual)+"-"+anio;
 				
@@ -124,7 +125,7 @@ public class MailServiceImpl implements IMailService {
 		
 	}
 	
-	public String construirTabla(CuentasPorCobrar2 cuenta) {
+	public String construirTabla(DeudoresPosgradoMasInfo cuenta) {
 		/****************/
 		ArrayList<String> array1=new ArrayList<String>();
 		String[] campos = {"cod_alumno"	,"ape_paterno"	,"ape_materno"	,"nombres del alumno",	"sigla_programa",	"moneda"	,"concepto"	,"descripcion_min"	,"importe_xpagar"	,"importe_pagado"	,"deuda"};
@@ -189,7 +190,7 @@ public class MailServiceImpl implements IMailService {
 		return htmlMostrar;
 	}
 
-	public void insertarNotificacionDeudas(CuentasPorCobrar2 cuenta,int numero_notificacion,int anio_notificacion) {
+	public void insertarNotificacionDeudas(DeudoresPosgradoMasInfo cuenta,int numero_notificacion,int anio_notificacion) {
 	
 		NotificacionDeudas notificacionDeudas=new NotificacionDeudas();
 		notificacionDeudas.setCod_alumno(cuenta.getCod_alumno());

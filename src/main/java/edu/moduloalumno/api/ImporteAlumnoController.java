@@ -49,15 +49,16 @@ public class ImporteAlumnoController {
 		return new ResponseEntity<ImporteAlumno>(impor, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/search/{cod_alumno}/{cod_programa}/{cod_concepto}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/search/{cod_alumno}/{cod_programa}/{cod_concepto}/{id_tipo_recaudacion}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ImporteAlumno> getImporteAlumnoImporte(@PathVariable("cod_alumno") String cod_alumno,
-			@PathVariable("cod_programa") Integer cod_programa, @PathVariable("cod_concepto") Integer cod_concepto) {
+			@PathVariable("cod_programa") Integer cod_programa, @PathVariable("cod_concepto") Integer cod_concepto,
+			@PathVariable("id_tipo_recaudacion") Integer id_tipo_recaudacion) {
 		logger.info("> getImporteAlumnoImporte [ImporteAlumno]");
 		System.out.println("Entro al importe del alumno");
 		ImporteAlumno importe = null;
 
 		try {
-			importe = service.getImporteAlumnoImporte(cod_alumno, cod_programa, cod_concepto);
+			importe = service.getImporteAlumnoImporte(cod_alumno, cod_programa, cod_concepto,id_tipo_recaudacion);
 
 			if (importe == null) {
 				importe = new ImporteAlumno();
@@ -114,7 +115,7 @@ public class ImporteAlumnoController {
 	public ResponseEntity<ImporteAlumno> addImporteAlumno(@RequestBody ImporteAlumno importealumno) {
 
 		logger.info("> addImporteAlumno [ImporteAlumno]");
-
+		logger.info("El importe enviado es "+importealumno + " < ");
 		// ImporteAlumno newImporteAlumno = null;
 
 		try {
@@ -137,8 +138,10 @@ public class ImporteAlumnoController {
 		int copro = newimportealumno.getCod_programa();
 		int cocon = newimportealumno.getCod_concepto();
 		double im = newimportealumno.getImporte();
+		Integer id_tipo_recaudacion  = newimportealumno.getId_tipo_recaudacion();
+		String id_moneda =  newimportealumno.getId_moneda();
 
-		ImporteAlumno importealumno = new ImporteAlumno(coalu, copro, cocon, im);
+		ImporteAlumno importealumno = new ImporteAlumno(coalu, copro, cocon, im,id_tipo_recaudacion,id_moneda);
 
 		try {
 			service.updateImporteAlumno(importealumno);
