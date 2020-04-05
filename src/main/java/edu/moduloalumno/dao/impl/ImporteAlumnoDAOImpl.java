@@ -80,8 +80,8 @@ public class ImporteAlumnoDAOImpl implements IImporteAlumnoDAO{
         @Override
 	public void updateImporteAlumno(ImporteAlumno importealumno) {
         System.out.println("ANTES DE ACTUALIZAR IMPORTE");
-		String sql = "UPDATE importe_alumno SET importe = ? WHERE cod_alumno = ? and cod_programa = ? and cod_concepto = ? and id_tipo_recaudacion= ?";
-		jdbcTemplate.update(sql,importealumno.getImporte(),importealumno.getCod_alumno(),importealumno.getCod_programa(),importealumno.getCod_concepto(),importealumno.getId_tipo_recaudacion());
+		String sql = "UPDATE importe_alumno SET importe = ? , id_moneda = ? WHERE cod_alumno = ? and cod_programa = ? and cod_concepto = ? and id_tipo_recaudacion= ? ";
+		jdbcTemplate.update(sql,importealumno.getImporte(),importealumno.getId_moneda(),importealumno.getCod_alumno(),importealumno.getCod_programa(),importealumno.getCod_concepto(),importealumno.getId_tipo_recaudacion());
 		System.out.println("DESPUES DE ACTUALIZAR IMPORTE");
     }
         

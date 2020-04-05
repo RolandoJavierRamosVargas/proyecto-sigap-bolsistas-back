@@ -56,6 +56,7 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultad {
 	
 	private String id_tip_grado;
 	
+	private Integer id_tipo_recaudacion;
 	
 	
     
@@ -305,6 +306,16 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultad {
 		this.estado_civil = estado_civil;
 	}
 
+	
+	
+	public Integer getId_tipo_recaudacion() {
+		return id_tipo_recaudacion;
+	}
+
+	public void setId_tipo_recaudacion(Integer id_tipo_recaudacion) {
+		this.id_tipo_recaudacion = id_tipo_recaudacion;
+	}
+
 	@Override
 	public String toString() {
 		return "RecaudacionesJOINAlumnoJOINConceptoJOINFacultad [idRec=" + idRec + ", idAlum=" + idAlum + ", apeNom="
@@ -314,8 +325,11 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultad {
 				+ anio_ingreso + ", idPrograma=" + idPrograma + ", nomPrograma=" + nomPrograma + ", sigla_programa="
 				+ sigla_programa + ", codAlumno=" + codAlumno + ", estado=" + estado + ", descripcion_ubi="
 				+ descripcion_ubi + ", descripcion_tipo=" + descripcion_tipo + ", estado_civil=" + estado_civil
-				+ ", validado=" + validado + ", repitencia=" + repitencia + ", observacion=" + observacion + "]";
+				+ ", validado=" + validado + ", repitencia=" + repitencia + ", id_tip_grado=" + id_tip_grado
+				+ ", id_tipo_recaudacion=" + id_tipo_recaudacion + ", observacion=" + observacion + "]";
 	}
+
+	
 	
 	
 	
