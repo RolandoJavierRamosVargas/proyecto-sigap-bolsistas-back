@@ -130,7 +130,7 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadDAOImpl implements I
 
 		String sql="select r.repitencia, r.id_rec, r.id_alum, rc.estado, " + 
 		"ap.nom_alumno || ' ' || ap.ape_paterno || ' ' || ap.ape_materno as ape_nom, " + 
-		"r.ciclo ,c.concepto,c.id_concepto,c.id_tipo_recaudacion,ap.dni_m as dni, r.numero, f.nombre, m.id_moneda, " +  
+		"r.ciclo ,c.concepto,c.id_concepto,r.id_tipo_recaudacion,ap.dni_m as dni, r.numero, f.nombre, m.id_moneda, " +  
 		"m.moneda, r.importe, r.fecha,ap.anio_ingreso,p.nom_programa, " + 
 		"p.id_programa,p.sigla_programa, r.cod_alumno, r.observacion, " + 
 		"u.descripcion as descripcion_ubi, t.descripcion as descripcion_tipo, r.validado, ec.ecivil_desc as estado_civil " + 		
@@ -188,7 +188,7 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadDAOImpl implements I
 		
 		String sql="select r.repitencia, r.id_rec, r.id_alum, rc.estado,  " +  
 		"ap.nom_alumno || ' ' || ap.ape_paterno || ' ' || ap.ape_materno as ape_nom, " +  
-		"r.ciclo,c.concepto,c.id_concepto,c.id_tipo_recaudacion, ap.dni_m as dni, " +  
+		"r.ciclo,c.concepto,c.id_concepto,r.id_tipo_recaudacion, ap.dni_m as dni, " +  
 		"r.numero, f.nombre,  m.id_moneda, m.moneda, r.importe, " +  
 		"COALESCE( s.fecha_equiv,r.fecha) as fecha,ap.anio_ingreso, " +  
 		"p.nom_programa, p.id_programa,p.sigla_programa, " +  
@@ -487,16 +487,11 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadDAOImpl implements I
 			validar = false;
 		
 		logger.info("Facultad DAO "+fecha+" "+" "+numero+" "+idRec);
-		String sql = "UPDATE recaudaciones SET id_concepto=?,moneda=?,fecha = ?, numero = ?,ciclo=?, importe=?, id_ubicacion = (select id_ubicacion from ubicacion where descripcion = ?), id_tipo = (select id_tipo from tipo where descripcion = ?), validado = ? , repitencia = ? WHERE id_rec = ?";
+		String sql = "UPDATE recaudaciones SET id_concepto=?,moneda=?,fecha = ?, numero = ?,ciclo=?, importe=?, id_ubicacion = (select id_ubicacion from ubicacion where descripcion = ?), id_tipo = (select id_tipo from tipo where descripcion = ?), validado = ? , repitencia = ?, id_tipo_recaudacion=? WHERE id_rec = ?";
 		logger.info("Facultad DAO "+sql);
-		Integer resp = jdbcTemplate.update(sql,id_concepto,moneda,fecha,numero,ciclo,importe,ubicacion,ctabanco,validar,repitencia,idRec);
+		Integer resp = jdbcTemplate.update(sql,id_concepto,moneda,fecha,numero,ciclo,importe,ubicacion,ctabanco,validar,repitencia,id_tipo_recaudacion,idRec);
 		
-		System.out.println("Aqui realizaremos otra consulta");
-		
-		String sql2="UPDATE concepto set id_tipo_recaudacion = ? where id_concepto= ?";
-		Integer resp2 = jdbcTemplate.update(sql2,id_tipo_recaudacion,id_concepto);
-		logger.info("resp :"+resp);
-		if(resp.equals(1) && resp2.equals(1)) {
+		if(resp.equals(1) ) {
 			return true;
 		}
 		else {
