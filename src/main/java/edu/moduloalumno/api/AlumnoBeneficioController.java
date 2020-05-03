@@ -213,7 +213,7 @@ public class AlumnoBeneficioController {
 				if(idx == 1) {	
 					
 					breporte = alumnobeneficioservice.funcionDescuento(codigo,descuento(codigo),id_programa);
-					
+					logger.info("el reporte beneficio es ->"+breporte.toString());
 					// dos decimales
 					breporte.setD_total(floatformat.round(breporte.getD_total(), 2));
 					breporte.setD_upg(floatformat.round(breporte.getD_upg(), 2));
