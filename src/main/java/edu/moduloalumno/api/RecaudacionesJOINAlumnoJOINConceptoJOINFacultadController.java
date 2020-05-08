@@ -5,7 +5,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +27,7 @@ import edu.moduloalumno.component.FloatFormat;
 import edu.moduloalumno.entity.CodigosporNomApe;
 import edu.moduloalumno.entity.RecaudacionesAlumnoConConcepto;
 import edu.moduloalumno.entity.RecaudacionesJOINAlumnoJOINConceptoJOINFacultad;
+import edu.moduloalumno.entity.RecaudacionesJoinAlumnoJoinConceptoJoinFacultadWithDescription;
 import edu.moduloalumno.model.DataActualizar;
 import edu.moduloalumno.model.Filtro;
 import edu.moduloalumno.service.IRecaudacionesJOINAlumnoJOINConceptoJOINFacultadService;
@@ -132,9 +135,9 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadController {
 	}
         
   /**/  @RequestMapping(value = "/listar_cod/{codigo}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<RecaudacionesJOINAlumnoJOINConceptoJOINFacultad>> getRecaudacionesJOINAlumnoJOINConceptoJOINFacultadByCodigo(@PathVariable("codigo") String codigo) {
+	public ResponseEntity<?> getRecaudacionesJOINAlumnoJOINConceptoJOINFacultadByCodigo(@PathVariable("codigo") String codigo) {
 		logger.info("> getRecaudacionesJOINAlumnoJOINConceptoJOINFacultadByCodigo [Recaudaciones]");
-
+		Map<String,Object> map = new HashMap<>();
 		List<RecaudacionesJOINAlumnoJOINConceptoJOINFacultad> list = null;
 
 		try {
@@ -161,8 +164,10 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadController {
 			}
 
 		} catch (Exception e) {
-			logger.error("Unexpected Exception caught.", e);
-			return new ResponseEntity<List<RecaudacionesJOINAlumnoJOINConceptoJOINFacultad>>(list, HttpStatus.INTERNAL_SERVER_ERROR);
+			String error = e.getMessage().concat(":"+e.getCause().getMessage());
+			map.put("error", error);
+			map.put("mensaje", "ha ocurrido un error en el Repository");
+			return new ResponseEntity<Map<String,Object>>(map, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 		logger.info("< getRecaudacionesByNomApe [Recaudaciones]");

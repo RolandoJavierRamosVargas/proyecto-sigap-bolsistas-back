@@ -4,6 +4,12 @@ import java.util.Date;
 
 public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultad {
 	
+	private Integer r_id_tipo_recaudacion;
+	
+	private Integer c_id_tipo_recaudacion;
+	
+	private String descripcion_recaudacion;
+	
 	private Integer idRec;
 	
 	private Integer idAlum;
@@ -57,10 +63,35 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultad {
 	private String id_tip_grado;
 	
 	private Integer id_tipo_recaudacion;
+
 	
 	
     
-    public String getId_tip_grado() {
+    public Integer getR_id_tipo_recaudacion() {
+		return r_id_tipo_recaudacion;
+	}
+
+	public void setR_id_tipo_recaudacion(Integer r_id_tipo_recaudacion) {
+		this.r_id_tipo_recaudacion = r_id_tipo_recaudacion;
+	}
+
+	public Integer getC_id_tipo_recaudacion() {
+		return c_id_tipo_recaudacion;
+	}
+
+	public void setC_id_tipo_recaudacion(Integer c_id_tipo_recaudacion) {
+		this.c_id_tipo_recaudacion = c_id_tipo_recaudacion;
+	}
+
+	public String getDescripcion_recaudacion() {
+		return descripcion_recaudacion;
+	}
+
+	public void setDescripcion_recaudacion(String descripcion_recaudacion) {
+		this.descripcion_recaudacion = descripcion_recaudacion;
+	}
+
+	public String getId_tip_grado() {
 		return id_tip_grado;
 	}
 
@@ -318,17 +349,20 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultad {
 
 	@Override
 	public String toString() {
-		return "RecaudacionesJOINAlumnoJOINConceptoJOINFacultad [idRec=" + idRec + ", idAlum=" + idAlum + ", apeNom="
-				+ apeNom + ", ciclo=" + ciclo + ", concepto=" + concepto + ", idconcepto=" + idconcepto + ", numero="
-				+ numero + ", dni=" + dni + ", nombre=" + nombre + ", moneda=" + moneda + ", moneda2=" + moneda2
-				+ ", importe=" + importe + ", importe_tc=" + importe_tc + ", fecha=" + fecha + ", anio_ingreso="
-				+ anio_ingreso + ", idPrograma=" + idPrograma + ", nomPrograma=" + nomPrograma + ", sigla_programa="
-				+ sigla_programa + ", codAlumno=" + codAlumno + ", estado=" + estado + ", descripcion_ubi="
-				+ descripcion_ubi + ", descripcion_tipo=" + descripcion_tipo + ", estado_civil=" + estado_civil
-				+ ", validado=" + validado + ", repitencia=" + repitencia + ", id_tip_grado=" + id_tip_grado
-				+ ", id_tipo_recaudacion=" + id_tipo_recaudacion + ", observacion=" + observacion + "]";
+		return "RecaudacionesJOINAlumnoJOINConceptoJOINFacultad [r_id_tipo_recaudacion=" + r_id_tipo_recaudacion
+				+ ", c_id_tipo_recaudacion=" + c_id_tipo_recaudacion + ", descripcion_recaudacion="
+				+ descripcion_recaudacion + ", idRec=" + idRec + ", idAlum=" + idAlum + ", apeNom=" + apeNom
+				+ ", ciclo=" + ciclo + ", concepto=" + concepto + ", idconcepto=" + idconcepto + ", numero=" + numero
+				+ ", dni=" + dni + ", nombre=" + nombre + ", moneda=" + moneda + ", moneda2=" + moneda2 + ", importe="
+				+ importe + ", importe_tc=" + importe_tc + ", fecha=" + fecha + ", anio_ingreso=" + anio_ingreso
+				+ ", idPrograma=" + idPrograma + ", nomPrograma=" + nomPrograma + ", sigla_programa=" + sigla_programa
+				+ ", codAlumno=" + codAlumno + ", estado=" + estado + ", descripcion_ubi=" + descripcion_ubi
+				+ ", descripcion_tipo=" + descripcion_tipo + ", estado_civil=" + estado_civil + ", validado=" + validado
+				+ ", repitencia=" + repitencia + ", id_tip_grado=" + id_tip_grado + ", id_tipo_recaudacion="
+				+ id_tipo_recaudacion + ", observacion=" + observacion + "]";
 	}
 
+	
 	
 	
 	

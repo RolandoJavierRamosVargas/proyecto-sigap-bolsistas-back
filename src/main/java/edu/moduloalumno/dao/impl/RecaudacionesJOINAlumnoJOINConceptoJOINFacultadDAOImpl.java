@@ -16,10 +16,12 @@ import edu.moduloalumno.dao.IRecaudacionesJOINAlumnoJOINConceptoJOINFacultadDAO;
 import edu.moduloalumno.entity.CodigosporNomApe;
 import edu.moduloalumno.entity.RecaudacionesAlumnoConConcepto;
 import edu.moduloalumno.entity.RecaudacionesJOINAlumnoJOINConceptoJOINFacultad;
+import edu.moduloalumno.entity.RecaudacionesJoinAlumnoJoinConceptoJoinFacultadWithDescription;
 import edu.moduloalumno.rowmapper.CodigosporNomApeRowMapper;
 import edu.moduloalumno.rowmapper.RecaudacionesAlumnoConConceptoRowMapper;
 import edu.moduloalumno.rowmapper.RecaudacionesJOINAlumnoJOINConceptoJOINFacultadRowMapper;
 import edu.moduloalumno.rowmapper.RecaudacionesJOINAlumnoJOINConceptoJOINFacultad_idTipoRecaudacionRowMapper;
+import edu.moduloalumno.rowmapper.RecaudacionesJoinAlumnoJoinConceptoJoinFacultadWithDescriptionRowMapper;
 
 @Transactional
 @Repository
@@ -185,10 +187,17 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadDAOImpl implements I
         
         @Override
 		public List<RecaudacionesJOINAlumnoJOINConceptoJOINFacultad> getRecaudacionesJOINAlumnoJOINConceptoJOINFacultadByCodigo(String codigo) {		
-		
-		String sql="select r.repitencia, r.id_rec, r.id_alum, rc.estado,  " +  
+        	
+		String sql="select r.id_tipo_recaudacion as r_id_tipo_recaudacion,c.id_tipo_recaudacion as c_id_tipo_recaudacion, "+
+		"CASE "+
+		"WHEN r.id_tipo_recaudacion=4 THEN 'REPIT' "+
+		"WHEN c.id_tipo_recaudacion=5 THEN coalesce(c.descripcion_min,c.concepto) "+
+		"WHEN r.id_tipo_recaudacion IS NULL THEN dconcepto.desc_tipo_recaudacion "+
+		"ELSE rconcepto.desc_tipo_recaudacion "+
+		"END as descripcion_recaudacion,"+
+		"r.repitencia, r.id_rec, r.id_alum, rc.estado,  " +  
 		"ap.nom_alumno || ' ' || ap.ape_paterno || ' ' || ap.ape_materno as ape_nom, " +  
-		"r.ciclo,c.concepto,c.id_concepto,r.id_tipo_recaudacion, ap.dni_m as dni, " +  
+		"r.ciclo,r.id_tipo_recaudacion,c.concepto,c.id_concepto, ap.dni_m as dni, " +  
 		"r.numero, f.nombre,  m.id_moneda, m.moneda, r.importe, " +  
 		"COALESCE( s.fecha_equiv,r.fecha) as fecha,ap.anio_ingreso, " +  
 		"p.nom_programa, p.id_programa,p.sigla_programa, " +  
@@ -202,6 +211,8 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadDAOImpl implements I
 		"inner join alumno a on (r.id_alum = a.id_alum) " + 
 		"inner join facultad f on (a.id_facultad = f.id_facultad) " +   
 		"inner join concepto c on (r.id_concepto = c.id_concepto) " +
+		"left outer join tipo_recaudacion dconcepto on (c.id_tipo_recaudacion=dconcepto.id_tipo_recaudacion)"+
+		"left outer join tipo_recaudacion rconcepto on (r.id_tipo_recaudacion=rconcepto.id_tipo_recaudacion)"+
 		"left outer join ubicacion u on (r.id_ubicacion = u.id_ubicacion) " +
 		"left outer join tipo t on (r.id_tipo = t.id_tipo) " +
 		"left outer join moneda m on (r.moneda = m.id_moneda) " +   
@@ -210,7 +221,7 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadDAOImpl implements I
 		"and (c.id_clase_pagos = 2) " +   
 		"order by c.concepto, r.fecha";
 
-		RowMapper<RecaudacionesJOINAlumnoJOINConceptoJOINFacultad> rowMapper = new RecaudacionesJOINAlumnoJOINConceptoJOINFacultad_idTipoRecaudacionRowMapper();
+		RowMapper<RecaudacionesJOINAlumnoJOINConceptoJOINFacultad> rowMapper = new RecaudacionesJoinAlumnoJoinConceptoJoinFacultadWithDescriptionRowMapper();
 		return this.jdbcTemplate.query(sql, rowMapper, codigo);
 	}
 

@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import edu.moduloalumno.entity.RecaudacionesJOINAlumnoJOINConceptoJOINFacultad;
+import edu.moduloalumno.entity.RecaudacionesJoinAlumnoJoinConceptoJoinFacultadWithDescription;
 
 public interface IRecaudacionesJOINAlumnoJOINConceptoJOINFacultadDAO {
 
