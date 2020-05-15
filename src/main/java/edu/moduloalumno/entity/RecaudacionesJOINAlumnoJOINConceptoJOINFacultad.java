@@ -64,7 +64,9 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultad {
 	
 	private Integer id_tipo_recaudacion;
 
+	private String observacion;
 	
+	private String observacion_upg;
 	
     
     public Integer getR_id_tipo_recaudacion() {
@@ -115,7 +117,7 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultad {
 		this.estado = estado;
 	}
 
-	private String observacion;
+	
     
 
 	public Integer getIdRec() {
@@ -347,6 +349,16 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultad {
 		this.id_tipo_recaudacion = id_tipo_recaudacion;
 	}
 
+	
+	
+	public String getObservacion_upg() {
+		return observacion_upg;
+	}
+
+	public void setObservacion_upg(String observacion_upg) {
+		this.observacion_upg = observacion_upg;
+	}
+
 	@Override
 	public String toString() {
 		return "RecaudacionesJOINAlumnoJOINConceptoJOINFacultad [r_id_tipo_recaudacion=" + r_id_tipo_recaudacion
@@ -359,8 +371,11 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultad {
 				+ ", codAlumno=" + codAlumno + ", estado=" + estado + ", descripcion_ubi=" + descripcion_ubi
 				+ ", descripcion_tipo=" + descripcion_tipo + ", estado_civil=" + estado_civil + ", validado=" + validado
 				+ ", repitencia=" + repitencia + ", id_tip_grado=" + id_tip_grado + ", id_tipo_recaudacion="
-				+ id_tipo_recaudacion + ", observacion=" + observacion + "]";
+				+ id_tipo_recaudacion + ", observacion=" + observacion + ", observacion_upg=" + observacion_upg + "]";
 	}
+
+
+	
 
 	
 	

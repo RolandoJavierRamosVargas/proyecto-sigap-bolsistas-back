@@ -84,7 +84,6 @@ public class RecaudacionesController {
 	}
 	
 	
-	
 	@RequestMapping(value = "/listar/{nomApe}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Recaudaciones>> getRecaudacionesByNomApe(@PathVariable("nomApe") String nomApe) {
 		logger.info("> getRecaudacionesByNomApe [Recaudaciones]");

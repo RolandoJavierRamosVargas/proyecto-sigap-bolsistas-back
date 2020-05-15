@@ -192,7 +192,7 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadDAOImpl implements I
 		"CASE "+
 		"WHEN r.id_tipo_recaudacion=4 THEN 'REPIT' "+
 		"WHEN c.id_tipo_recaudacion=5 THEN coalesce(c.descripcion_min,c.concepto) "+
-		"WHEN r.id_tipo_recaudacion IS NULL THEN dconcepto.desc_tipo_recaudacion "+
+		"WHEN r.id_tipo_recaudacion IS NULL OR r.id_tipo_recaudacion=0 THEN dconcepto.desc_tipo_recaudacion "+
 		"ELSE rconcepto.desc_tipo_recaudacion "+
 		"END as descripcion_recaudacion,"+
 		"r.repitencia, r.id_rec, r.id_alum, rc.estado,  " +  
@@ -201,7 +201,7 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadDAOImpl implements I
 		"r.numero, f.nombre,  m.id_moneda, m.moneda, r.importe, " +  
 		"COALESCE( s.fecha_equiv,r.fecha) as fecha,ap.anio_ingreso, " +  
 		"p.nom_programa, p.id_programa,p.sigla_programa, " +  
-		"r.cod_alumno, ec.ecivil_desc as estado_civil, r.observacion, " +
+		"r.cod_alumno, ec.ecivil_desc as estado_civil, r.observacion, r.observacion_upg , " +
 		"u.descripcion as descripcion_ubi, t.descripcion as descripcion_tipo, r.validado " + 
 		"from recaudaciones r " +  
 		"inner join registro_carga rc on (rc.id_registro = r.id_registro) " +
@@ -510,11 +510,12 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadDAOImpl implements I
 		}
 
 	}
+	
 
 	@Override
 	public boolean insertObservacion(String observacion,Integer idrec) {
-		String sql = "update recaudaciones set observacion = ? where id_rec = ?";
-		Integer resp = jdbcTemplate.update(sql,observacion,idrec);
+		String sql = "update recaudaciones set observacion = ?, observacion_upg = ? where id_rec = ?";
+		Integer resp = jdbcTemplate.update(sql,observacion,observacion,idrec);
 		logger.info("resp :"+resp);
 		if(resp.equals(1)) {
 			return true;

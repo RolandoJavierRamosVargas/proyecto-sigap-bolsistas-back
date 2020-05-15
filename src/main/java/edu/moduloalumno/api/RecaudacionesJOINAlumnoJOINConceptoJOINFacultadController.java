@@ -115,6 +115,7 @@ public class RecaudacionesJOINAlumnoJOINConceptoJOINFacultadController {
        
 	// microservicio especail para abel
 	
+	
 	@RequestMapping(value = "/obs/{observacion}/{idrec}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public boolean insertObesrvacion(@PathVariable("observacion") String observacion,@PathVariable("idrec") String idrec) {
 		logger.info(">>>> observacion <<<<");

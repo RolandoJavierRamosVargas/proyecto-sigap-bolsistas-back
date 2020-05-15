@@ -15,7 +15,6 @@ public class RecaudacionesJoinAlumnoJoinConceptoJoinFacultadWithDescriptionRowMa
 			throws SQLException {
 		RecaudacionesJOINAlumnoJOINConceptoJOINFacultad recaudacion = new RecaudacionesJOINAlumnoJOINConceptoJOINFacultad();
 		
-		
 		recaudacion.setR_id_tipo_recaudacion(row.getInt("r_id_tipo_recaudacion"));
 		recaudacion.setC_id_tipo_recaudacion(row.getInt("c_id_tipo_recaudacion"));
 		recaudacion.setDescripcion_recaudacion(row.getString("descripcion_recaudacion"));
@@ -43,6 +42,7 @@ public class RecaudacionesJoinAlumnoJoinConceptoJoinFacultadWithDescriptionRowMa
 		recaudacion.setCodAlumno(row.getString("cod_alumno"));
 		recaudacion.setEstado_civil(row.getString("estado_civil"));
 		recaudacion.setObservacion(row.getString("observacion"));
+		recaudacion.setObservacion_upg(row.getString("observacion_upg"));
 		
 		recaudacion.setDescripcion_ubi(row.getString("descripcion_ubi"));
 		recaudacion.setDescripcion_tipo(row.getString("descripcion_tipo"));
