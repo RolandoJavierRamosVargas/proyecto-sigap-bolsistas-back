@@ -1,11 +1,15 @@
 spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB  
+      max-request-size: 50MB
+  http:
+    multipart.enabled: true    
   mail:
     host: smtp.gmail.com
     port: 587
     username: rolando.ramos2@unmsm.edu.pe
     password: rolandoramosvargas
-    
-    
     properties:
       mail:
         smtp:
@@ -21,6 +25,7 @@ spring:
 
 server:
    port: 8080
+   connection-timeout: -1
    
 #eureka:
 #  client:
@@ -32,6 +37,7 @@ server:
 
 banner:
   location: classpath:/example/banner.txt
+
+  
  
 spring.mvc.contentnegotiation.media-types.xlsx : application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
-
