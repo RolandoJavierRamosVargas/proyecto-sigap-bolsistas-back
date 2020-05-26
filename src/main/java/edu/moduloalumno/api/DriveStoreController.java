@@ -84,8 +84,7 @@ public class DriveStoreController {
 	@Value("${google.secret.key.path}")
 	private Resource gdSecretKeys;
 
-	@Value("${google.credentials.folder.path}")
-	private Resource credentialsFolder;
+	
 
 	private GoogleAuthorizationCodeFlow flow;
 
@@ -143,7 +142,7 @@ public class DriveStoreController {
 	}
 
 	@PostMapping(value = "/upload/{codigo}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity uploadFile(@RequestParam MultipartFile file,@PathVariable String codigo) throws Exception {
+	public ResponseEntity<?> uploadFile(@RequestParam MultipartFile file,@PathVariable String codigo) throws Exception {
 
 		Map<String,Object> resp=new HashMap<>();
 
@@ -167,8 +166,8 @@ public class DriveStoreController {
 				.setApplicationName("googledrivespringbootexample").build();
 
 		Path ruta=coyFileIntoServidor(file);
-
-		String result = searchFile(drive, "02.UPG.FISI.CARPETAS.ALUMNOS");
+		String carpetaBase="02.UPG.FISI.CARPETAS.ALUMNOS";
+		String result = searchFile(drive,carpetaBase);
 		if (result.equals("notFound")) {
 			logger.info("Se tiene que crear la estrucura");
 			// crearemos la estructura desde el inicio
