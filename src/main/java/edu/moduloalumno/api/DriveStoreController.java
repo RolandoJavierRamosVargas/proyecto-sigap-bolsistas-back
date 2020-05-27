@@ -277,6 +277,7 @@ public class DriveStoreController {
 			Files.copy(file.getInputStream(), rutaArchivo);
 		} catch (IOException e) {
 			
+			
 		}
 		return rutaArchivo;
 	}
