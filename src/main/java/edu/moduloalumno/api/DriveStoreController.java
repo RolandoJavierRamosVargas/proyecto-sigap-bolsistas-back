@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -76,7 +77,7 @@ public class DriveStoreController {
 
 	private static final String USER_IDENTIFIER_KEY = "MY_DUMMY_USER";
 	
-	private static final String TOKENS_DIRECTORY_PATH = "tokens";
+	private static final String TOKENS_DIRECTORY_PATH = "src/main/resources/credentials";
 
 	@Value("${google.oauth.callback.uri}")
 	private String CALLBACK_URI;
@@ -84,33 +85,45 @@ public class DriveStoreController {
 	@Value("${google.secret.key.path}")
 	private Resource gdSecretKeys;
 
-	
-
 	private GoogleAuthorizationCodeFlow flow;
 
+	
 	
 	@PostConstruct
 	public void init() throws Exception {
 		GoogleClientSecrets secrets = GoogleClientSecrets.load(JSON_FACTORY,
 				new InputStreamReader(gdSecretKeys.getInputStream()));
 		flow = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, secrets, SCOPES)
-				.setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH))).setAccessType("offline").build();
+					.setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH))).build();
+		
+		
+		System.out.println("se ha cargado post construct");
 	}
-
-	@GetMapping(value = { "/" })
+	@PreDestroy
+	public void close() throws Exception{
+		System.out.println("se ha destruido el bean");
+	}
+	@GetMapping("/home")
 	public String showHomePage() throws Exception {
-		boolean isUserAuthenticated = false;
-
+		boolean isUserAuthenticated = false;		
 		Credential credential = flow.loadCredential(USER_IDENTIFIER_KEY);
+		System.out.println("credential "+credential.getExpiresInSeconds());
 		if (credential != null) {
 			boolean tokenValid = credential.refreshToken();
-			
-			if (tokenValid) {
-				isUserAuthenticated = true;
-			}
+			System.out.println("el refresh token es "+tokenValid);
+			isUserAuthenticated = true;
+			System.out.println("isUserAuthenticated "+isUserAuthenticated);
+//			if (tokenValid) {
+//			}
 		}
-
-		return isUserAuthenticated ? "dashboard.html" : "index.html";
+		if(isUserAuthenticated) {
+			System.out.println("retorna dashboard");
+			return "dashboard.html";
+		}else {
+			System.out.println("retorna index");
+			return "index.html";
+		}
+		
 	}
 
 	@GetMapping(value = { "/googlesignin" })
@@ -250,7 +263,7 @@ public class DriveStoreController {
 
 	public String uploadIntoFolder(MultipartFile file, Drive drive, String id) {
 		String fileName = file.getOriginalFilename();
-		Path rutaArchivo = Paths.get("uploads").resolve(fileName).toAbsolutePath();
+		Path rutaArchivo = Paths.get("src/main/resources/uploads").resolve(fileName).toAbsolutePath();
 		String contentType = file.getContentType();
 
 		String ruta = rutaArchivo.toString();
@@ -265,20 +278,23 @@ public class DriveStoreController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return archivo.getId();
 
 	}
 	
 	public Path coyFileIntoServidor(MultipartFile file) {
 		String fileName = file.getOriginalFilename();
-		Path rutaArchivo = Paths.get("uploads").resolve(fileName).toAbsolutePath();
+		Path rutaArchivo = Paths.get("src/main/resources/uploads").resolve(fileName).toAbsolutePath();
 		String contentType = file.getContentType();	
 		try {
 			Files.copy(file.getInputStream(), rutaArchivo);
 		} catch (IOException e) {
 			
-			
 		}
+		System.out.println("subido al servidor");
+		System.out.println("subido al servidor");
+		System.out.println("subido al servidor");
 		return rutaArchivo;
 	}
 	
